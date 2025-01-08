@@ -1,6 +1,6 @@
 export default function Presentation() {
     return (
-        <div className="container mx-auto p-6 bg-gray-50">
+        <div className="container mx-auto p-6 ">
             {/* Introduction avec la première photo */}
             <div className="flex flex-col md:flex-row items-center md:items-start mb-12">
                 <div className="md:w-1/6 mb-6 md:mb-0">
@@ -32,17 +32,15 @@ export default function Presentation() {
             <div className="flex flex-col md:flex-row items-center md:items-start mb-12">
 
 
-                <div className=" mb-6 md:mb-0">
+                <div className="md:w-1/3 mb-6 md:mb-0">
                     <img
                         src="/image4.jpg"
                         alt="Jérémy en entraînement"
                         className="rounded-lg w-full h-80 object-cover shadow-lg mx-auto md:mx-0"
                     />
                 </div>
-            </div>
-
-            {/* Histoire et parcours */}
-            <div className="mb-12 bg-gray-100 p-6 rounded-lg shadow-xl">
+                    {/* Histoire et parcours */}
+            <div className="md:w-2/3 ml-4 bg-gray-100 p-4 rounded-lg shadow-xl">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mon parcours sportif</h2>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                     Depuis mon plus jeune âge, j'ai baigné dans un environnement sportif, ce qui a façonné mon caractère
@@ -59,6 +57,9 @@ export default function Presentation() {
                     être le plus diversifié possible, enrichissant ainsi mes compétences.
                 </p>
             </div>
+            </div>
+
+        
 
             {/* Spécialisation avec effet de relief */}
             <div className="mb-12 bg-gray-100 p-6 rounded-lg shadow-xl">

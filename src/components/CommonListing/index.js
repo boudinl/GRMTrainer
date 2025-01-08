@@ -30,7 +30,7 @@ useEffect(()=> {
 router.refresh();
 }, [])
 
-    return <section className="bg-white py-5 sm:py-2">
+    return <section className=" py-5 sm:py-2">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="mt-5">
           {Object.keys(groupedProducts).map((type) => (

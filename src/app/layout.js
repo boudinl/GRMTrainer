@@ -2,7 +2,7 @@ import {Merriweather} from 'next/font/google'
 import "./globals.css";
 import GlobalState from '@/context';
 import Navbar from '@/components/Navbar';
-
+import Footer from '@/components/Footer';
 
 //const inter = Merriweather({subsets:['latin'], weight: ['300', '400', '700', '900']})
 
@@ -14,10 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="font-bookAntiqua text-base">
+      <body className="font-bookAntiqua text-base bg-gray-200">
         <GlobalState>
           <Navbar/>
           <main className='flex min-h-screen flex-col mt-[90px]'>{children}</main>
+          <Footer/>
         </GlobalState>
       </body>
     </html>

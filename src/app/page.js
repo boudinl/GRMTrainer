@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className=" py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-screen-xl mx-auto text-center">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
           Que vous souhaitiez transformer votre physique, booster votre énergie ou retrouver un équilibre durable.
