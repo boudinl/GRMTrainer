@@ -41,7 +41,7 @@ router.refresh();
               <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4 lg:mt-8">
                 {groupedProducts[type].map((item) => (
                   <article
-                    className="relative flex flex-col overflow-hidden border cursor-pointer"
+                    className="bg-white border-black rounded-md relative flex flex-col overflow-hidden border cursor-pointer"
                     key={item._id}
                   >
                     <ProductTile item={item} />

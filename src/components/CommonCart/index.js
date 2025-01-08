@@ -91,29 +91,29 @@ export default function CommonCart({
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-gray-400">Sous-total</p>
                   <p className="text-lg text-black font-semibold">
-                    $
+                    
                     {cartItems && cartItems.length
                       ? cartItems.reduce(
                           (total, item) => item.productID.price + total,
                           0
                         )
-                      : "0"}
+                      : "0"}€
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-gray-400">Frais de livraison</p>
-                  <p className="text-lg text-black font-semibold">$0</p>
+                  <p className="text-lg text-black font-semibold">0€</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-gray-400">Total</p>
                   <p className="text-lg text-black font-semibold">
-                    $
+                    
                     {cartItems && cartItems.length
                       ? cartItems.reduce(
                           (total, item) => item.productID.price + total,
                           0
                         )
-                      : "0"}
+                      : "0"}€
                   </p>
                 </div>
                 <div className="mt-5 text-center">
