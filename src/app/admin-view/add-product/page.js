@@ -42,28 +42,19 @@ const initialFormData = {
     name: "",
     price: 0,
     description: "",
-    category: "men",
+    category: "mixte",
     sizes: [], // pour les vêtements, tailles possibles
     deliveryInfo: "",
     onSale: "no",
     imageUrl: "",
+    optionalImagesUrl : [],
     priceDrop: 0,
     productType: "product",  // Nouveau champ pour le type de produit
     // Si le type est "coaching" ou "ebook", d'autres champs peuvent être initialisés par défaut.
     duration: 0, // pour le coaching, durée de la session
     format: "", // pour ebook, format du livre (PDF, EPUB, etc.)
 };
-// const initialFormData = {
-//     name: "",
-//     price: 0,
-//     description: "",
-//     category: "men",
-//     sizes: [],
-//     deliveryInfo: "",
-//     onSale: "no",
-//     imageUrl: "",
-//     priceDrop: 0,
-// };
+
 export default function AdminAddNewProduct() {
 
     const [formData, setFormData] = useState(initialFormData);
@@ -90,7 +81,22 @@ export default function AdminAddNewProduct() {
         }
 
     }
+    async function handleOptionalImages(event) {
+        const files = event.target.files;
+        let uploadedImages = [];
 
+        // Pour chaque fichier, uploader l'image sur Firebase et récupérer l'URL
+        for (let i = 0; i < files.length; i++) {
+            const imageUrl = await helperForUploadingImageToFirebase(files[i]);
+            if (imageUrl) {
+                uploadedImages.push(imageUrl);
+            }
+        }
+        setFormData(prevState => ({
+            ...prevState,
+            optionalImagesUrl: [...prevState.optionalImagesUrl, ...uploadedImages]
+        }));
+    }
     function handleTileClick(getCurrentItem) {
         console.log(getCurrentItem);
         let cpySizes = [...formData.sizes];
@@ -147,12 +153,56 @@ export default function AdminAddNewProduct() {
         <div className="w-full mt-5 mr-0 mb-0 ml-0 relative">
             <div className="flex flex-col items-start justify-start p-10 bg-white shadow-2xl rounded-xl relative">
                 <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-8">
-                    <input
+                <input
                         type="file"
                         accept="image/*"
                         max="10000000"
                         onChange={handleImage}
                     />
+                    <div className="flex gap-4 mt-4">
+                        {/* Affichage de l'image principale (imageUrl) */}
+                        {formData.imageUrl && (
+                            <div className="w-24 h-24 relative">
+                                <img
+                                    src={formData.imageUrl}  // Affichage de l'image principale
+                                    alt="main-image"
+                                    className="w-full h-full object-cover rounded-lg"
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex gap-2 flex-col">
+                        <label>Images supplémentaires</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleOptionalImages}
+                        />
+                    </div>
+                    <div className="flex gap-4 mt-4">
+                        {formData.optionalImagesUrl.length > 0 && formData.optionalImagesUrl.map((imageUrl, index) => (
+                            <div key={index} className="w-24 h-24 relative">
+                                <img
+                                    src={imageUrl}
+                                    alt={`image-${index}`}
+                                    className="w-full h-full object-cover rounded-lg"
+                                />
+                                <button
+                                    onClick={() => {
+                                        // Supprimer l'image
+                                        setFormData({
+                                            ...formData,
+                                            optionalImagesUrl: formData.optionalImagesUrl.filter((_, idx) => idx !== index)
+                                        });
+                                    }}
+                                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                     <div className="flex gap-2 flex-col">
                         <label>Type de produit</label>
                         <SelectComponent

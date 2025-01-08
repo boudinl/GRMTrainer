@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema({
     onSale: String,
     priceDrop: Number,
     imageUrl: String,
-
+    optionalImagesUrl : Array,
     duration: {  // Durée spécifique pour le coaching
       type: Number,
       required: function() { return this.type === 'coaching'; }  // Obligatoire uniquement pour le coaching
@@ -32,17 +32,7 @@ const ProductSchema = new mongoose.Schema({
     }
   }, { timestamps: true });
 
-// const ProductSchema = new mongoose.Schema({
-//     name:String,
-//     description : String, 
-//     price : Number,
-//     category : String,
-//     sizes : Array,
-//     deliveryInfo : String,
-//     onSale: String,
-//     priceDrop : Number,
-//     imageUrl : String
-// }, {timestamps : true})
+
 
 const Product = mongoose.models.Products || mongoose.model("Products", ProductSchema);
 

@@ -36,7 +36,7 @@ router.refresh();
           {Object.keys(groupedProducts).map((type) => (
             <div key={type} className="mb-5">
               <h2 className="text-3xl font-semibold mb-2 capitalize">
-                {type === 'coaching' ? 'Coaching' : type === 'vetement' ? 'Vêtements' : type === 'ebook' ? 'Ebooks' : 'Autres'}
+                {type === 'coaching' ? 'Coaching' : type === 'product' ? 'Produits' : type === 'ebook' ? 'Ebooks' : 'Autres'}
               </h2>
               <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4 lg:mt-8">
                 {groupedProducts[type].map((item) => (
