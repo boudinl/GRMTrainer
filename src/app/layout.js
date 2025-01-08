@@ -1,10 +1,10 @@
-import {Inter} from 'next/font/google'
+import {Merriweather} from 'next/font/google'
 import "./globals.css";
 import GlobalState from '@/context';
 import Navbar from '@/components/Navbar';
 
 
-const inter = Inter({subsets:['latin']})
+//const inter = Merriweather({subsets:['latin'], weight: ['300', '400', '700', '900']})
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-bookAntiqua text-base">
         <GlobalState>
           <Navbar/>
           <main className='flex min-h-screen flex-col mt-[90px]'>{children}</main>

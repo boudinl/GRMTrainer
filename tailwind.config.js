@@ -10,6 +10,16 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        bordeaux: '#6a0d1a', // Bordeaux
+        noir: '#000000',     // Noir
+        blanc: '#FFFFFF',    // Blanc
+        or: '#cfb53b',       // Or
+      },
+      fontFamily: {
+        bookAntiqua: ['"Book Antiqua"', 'serif'], // Ajoute Book Antiqua comme police
+      },
+      fontSize: {
+        base: '1.125rem', // Taille de texte par défaut (augmentée de 1rem à 1.125rem)
       },
     },
   },
