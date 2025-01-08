@@ -15,7 +15,7 @@ const AddNewProductSchema = Joi.object({
     onSale: Joi.string().required(),
     priceDrop: Joi.number().required(),
     imageUrl: Joi.string().required(),
-    productType: Joi.string().valid('vetement', 'coaching', 'ebook').required(),  // Ajout du champ 'type'
+    productType: Joi.string().valid('product', 'coaching', 'ebook').required(),  // Ajout du champ 'type'
     duration: Joi.number().optional(), // Optionnel, uniquement pour le type 'coaching'
     ebookFile: Joi.string().optional(),   // Optionnel, uniquement pour le type 'ebook'
 });

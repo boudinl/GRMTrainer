@@ -90,7 +90,7 @@ export default function CommonDetails({ item }) {
       );
     }
 
-    if (item.productType === 'vetement') {
+    if (item.productType === 'product') {
       return (
         <div>
           <h3 className="text-xl font-semibold mt-4">Tailles disponibles :</h3>

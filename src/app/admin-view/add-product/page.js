@@ -48,7 +48,7 @@ const initialFormData = {
     onSale: "no",
     imageUrl: "",
     priceDrop: 0,
-    productType: "vetement",  // Nouveau champ pour le type de produit
+    productType: "product",  // Nouveau champ pour le type de produit
     // Si le type est "coaching" ou "ebook", d'autres champs peuvent être initialisés par défaut.
     duration: 0, // pour le coaching, durée de la session
     format: "", // pour ebook, format du livre (PDF, EPUB, etc.)
@@ -158,8 +158,8 @@ export default function AdminAddNewProduct() {
                         <SelectComponent
                             label="Type"
                             options={[  {
-                                id: "vetement",
-                                label: "vetement",
+                                id: "product",
+                                label: "produit",
                               },
                               {
                                 id: "coaching",
@@ -178,7 +178,7 @@ export default function AdminAddNewProduct() {
                             }}
                         />
                     </div>
-                    {formData.productType === "vetement" ? 
+                    {formData.productType === "product" ? 
                     <div className="felx gap-2 flex-col">
                         <label >Tailles possibles</label>
                         <TileComponent selected={formData.sizes} onClick={handleTileClick} data={AvailableSizes}></TileComponent>

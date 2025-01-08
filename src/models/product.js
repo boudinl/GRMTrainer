@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema({
     productType: {
         type: String,
-        enum: ['vetement', 'coaching', 'ebook'],
+        enum: ['product', 'coaching', 'ebook'],
         required: true,  // Ce champ est maintenant obligatoire
       },
     name: String,
@@ -15,7 +15,7 @@ const ProductSchema = new mongoose.Schema({
     category: String,
     sizes: {
       type: Array,
-      required: function() { return this.type === 'vetement'; },  // Obligatoire uniquement pour les vêtements
+      required: function() { return this.type === 'product'; },  // Obligatoire uniquement pour les vêtements
     },
     deliveryInfo: String,
     onSale: String,

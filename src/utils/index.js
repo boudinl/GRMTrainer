@@ -11,9 +11,14 @@ export const navOptions = [
   },
   {
     id: "listing",
-    label: "Tous les produits",
+    label: "Tous les services",
     path: "/product/listing/all-products",
     subItems: [
+      {
+        id : "product",
+        label : "Produits",
+        path: "/product/listing/products"
+      },
       {
         id: "coaching",
         label: "Coachings",
@@ -31,31 +36,7 @@ export const navOptions = [
     label: "Mes avis",
     path: "/opinions",
   },
-  // {
-  //   id: "coaching",
-  //   label: "Coachings",
-  //   path: "/product/listing/coaching",
-  // },
-  // {
-  //   id: "ebooks",
-  //   label: "E-books",
-  //   path: "/product/listing/ebook",
-  // },
-  // {
-  //   id: "listingMen",
-  //   label: "Men",
-  //   path: "/product/listing/men",
-  // },
-  // {
-  //   id: "listingWomen",
-  //   label: "Women",
-  //   path: "/product/listing/women",
-  // },
-  // {
-  //   id: "listingKids",
-  //   label: "kids",
-  //   path: "/product/listing/kids",
-  // },
+
 ];
 
 export const adminNavOptions = [
@@ -183,7 +164,7 @@ export const adminAddProductformControls = [
         label: "Enfant",
       },
     ],
-    visibleFor: ["vetement"]
+    visibleFor: ["product"]
   },
   {
     id: "deliveryInfo",
@@ -223,7 +204,7 @@ export const adminAddProductformControls = [
     placeholder: "",
     label: "Tailles",
     componentType: "tile",  // On peut utiliser un TileComponent pour afficher les tailles
-    visibleFor: ["vetement"], // Ce champ est visible seulement pour les vêtements
+    visibleFor: ["product"], // Ce champ est visible seulement pour les vêtements
   },
   // Champ conditionnel pour la durée du coaching
   {

@@ -2,7 +2,7 @@ import CommonListing from "@/components/CommonListing";
 import { productByProductType } from "@/services/product";
 
 
-export default async function clothingAllProducts() {
+export default async function eBookAllProducts() {
 
     const getAllProducts = await productByProductType('ebook')
     const saleCodes = await getAllSaleCodes()
