@@ -36,7 +36,7 @@ export default function Home() {
         </section>
 
         {/* Coaching en présentiel */}
-        <section className="bg-white py-12 flex flex-col md:flex-row items-center justify-between mb-16">
+        <section className=" py-12 flex flex-col md:flex-row items-center justify-between mb-16">
           <div className="w-full md:w-1/2 mb-6 md:mb-0">
             <img
               src="/path/to/in-person-coaching.jpg" // Remplacez par le chemin réel de l'image
