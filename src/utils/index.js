@@ -317,6 +317,13 @@ export const addNewSaleCodeForm = [
     label: "Pourcentage de réduction",
     componentType: "input",
   },
+  {
+    id: "sponsor",
+    type: "input",
+    placeholder: "Optionnel",
+    label: "Partenaire",
+    componentType: "input",
+  },
 ];
 export const addNewOpinionForm = [
   {

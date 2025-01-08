@@ -30,7 +30,7 @@ export async function GET(req) {
 
         if (getData && getData.length) {
             return NextResponse.json({
-                message: "Code ajouté correctement",
+                message: "Réduction ajoutée correctement",
                 success: true,
                 data: getData[0],
 

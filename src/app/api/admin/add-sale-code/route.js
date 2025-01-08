@@ -8,6 +8,7 @@ import { NextResponse } from "next/server";
 const AddNewSaleCode = Joi.object({
     code: Joi.string().required(),
     priceDrop: Joi.number().required(),
+    sponsor: Joi.string().allow('', null).optional(),
    
 });
 
@@ -28,10 +29,10 @@ export async function POST(req) {
             const extractData = await req.json()
             console.log(extractData);
             const {
-                code, priceDrop
+                code, priceDrop, sponsor
             } = extractData;
             const { error } = AddNewSaleCode.validate({
-                code, priceDrop
+                code, priceDrop, sponsor
             })
             console.log(extractData);
             if (error) {

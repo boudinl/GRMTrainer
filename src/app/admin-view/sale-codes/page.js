@@ -28,6 +28,7 @@ export default function AdminManageSaleCodes() {
     const [newCode, setNewCode] = useState({
         code: "",
         priceDrop: "",
+        sponsor: "",
 
     });
 
@@ -46,33 +47,36 @@ export default function AdminManageSaleCodes() {
 
     // Fonction pour ajouter un nouveau code promo
     async function handleAddSaleCode() {
-        setComponentLevelLoader({loading:true,id:""})
+        console.log(newCode)
+        setComponentLevelLoader({ loading: true, id: "" })
         console.log(newCode)
         const res = await addSaleCode(newCode)
         if (res.success) {
             setComponentLevelLoader({ loading: false, id: "" });
             toast.success(res.message, {
-              position: "top-right",
-            });
-            setNewCode({
-              code: "",
-              priceDrop: "",
-             
-            });
-            extractAllSaleCodes();
-         
-          } else {
-            setComponentLevelLoader({ loading: false, id: "" });
-            toast.error(res.message, {
-              position: "top-right",
+                position: "top-right",
             });
             setNewCode({
                 code: "",
                 priceDrop: "",
-               
-              });
-          }
-       
+                sponsor: "",
+
+            });
+            extractAllSaleCodes();
+
+        } else {
+            setComponentLevelLoader({ loading: false, id: "" });
+            toast.error(res.message, {
+                position: "top-right",
+            });
+            setNewCode({
+                code: "",
+                priceDrop: "",
+                sponsor: "",
+
+            });
+        }
+
     }
     async function handleDeleteSaleCode(codeId) {
         console.log(codeId)
@@ -121,6 +125,9 @@ export default function AdminManageSaleCodes() {
                                     <div className="flex w-full flex-col px-4 py-4">
                                         <span className="font-bold">{item.code}</span>
                                         <span className="font-semibold">{`Réduction : ${item.priceDrop} %`}</span>
+                                        {item.sponsor && item.sponsor.trim() !== '' && (
+                                            <span className="font-semibold">{`Partenaire : ${item.sponsor}`}</span>
+                                        )}
                                     </div>
                                     <button
                                         onClick={() => handleDeleteSaleCode(item._id)}

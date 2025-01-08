@@ -16,6 +16,9 @@ export default async function eBookAllProducts() {
                         {saleCodes.data.map((code, index) => (
                             <li className="my-2" key={index}>
                                 - {code.priceDrop}% de réduction avec le code : <strong>{code.code}</strong>
+                                {code.sponsor && code.sponsor.trim() !== '' && (
+                                    <span> grâce au partenaire <strong>{code.sponsor}</strong> </span>
+                                )}
                             </li>
                         ))}
                     </ul>

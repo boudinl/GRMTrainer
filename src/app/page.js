@@ -1,9 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+  const router = useRouter();
   return (
-    <div className=" py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-screen-xl mx-auto text-center">
+    <div className=" py-8 px-16 sm:px-6 lg:px-16">
+      <div className="max-w-screen mx-auto text-center">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
           Que vous souhaitiez transformer votre physique, booster votre énergie ou retrouver un équilibre durable.
         </h1>
@@ -13,15 +16,21 @@ export default function Home() {
         </p>
 
         {/* Coaching en ligne */}
+        <h2 
+            className="text-4xl text-left font-bold text-gray-800 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out" 
+            onClick={() => router.push(`/product/listing/ebook`)}
+          >
+            Coachings
+          </h2>   
         <section className="mb-16 flex flex-col md:flex-row items-center justify-between">
-          <div className="w-full md:w-1/2 mb-6 md:mb-0">
+          <div className="w-full md:w-1/2 mb-6 md:mb-0 mr-4 flex items-center">
             <img
-              src="/path/to/online-coaching-photo.jpg" // Remplacez par le chemin réel de l'image
+              src="/image5.jpg" // Remplacez par le chemin réel de l'image
               alt="Coaching en ligne"
-              className="w-full rounded-lg shadow-lg"
-            />
+              className="w-full  rounded-xl "/>
           </div>
           <div className="w-full md:w-1/2 text-left px-4">
+          
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">Coaching en ligne</h3>
             <p className="text-lg text-gray-700 mb-4">
               Suivi 3 mois à 90€/mois : Débutez votre transformation physique avec notre programme intensif de 3 mois. Recevez un plan d'entraînement personnalisé, un suivi nutritionnel adapté, et des conseils d'experts pour commencer à voir des résultats concrets et atteindre vos premiers objectifs. Ce programme est idéal pour ceux qui souhaitent initier un changement rapide et significatif.
@@ -36,15 +45,15 @@ export default function Home() {
         </section>
 
         {/* Coaching en présentiel */}
-        <section className=" py-12 flex flex-col md:flex-row items-center justify-between mb-16">
-          <div className="w-full md:w-1/2 mb-6 md:mb-0">
+        <section className=" py-4 flex flex-col md:flex-row items-center justify-between mb-4">
+          <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <img
-              src="/path/to/in-person-coaching.jpg" // Remplacez par le chemin réel de l'image
+              src="image8.jpg" // Remplacez par le chemin réel de l'image
               alt="Coaching en présentiel"
-              className="w-full rounded-lg shadow-lg"
+              className="w-full max-h-[400px] rounded-xl object-contain"
             />
           </div>
-          <div className="w-full md:w-1/2 text-left px-4">
+          <div className="w-full md:w-2/3 text-left px-4">
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">Coaching en présentiel</h3>
             <p className="text-lg text-gray-700 mb-4">
               Le coaching en présentiel que je propose est entièrement personnalisé et conçu pour s’adapter à vos préférences et objectifs. Vous avez le choix de vous entraîner en extérieur pour profiter du plein air, en salle de sport partenaire pour bénéficier d'un cadre équipé, ou en groupe pour une motivation collective, ou en individuel pour un suivi sur mesure.
@@ -56,11 +65,16 @@ export default function Home() {
         </section>
 
         {/* eBooks */}
-        <section className="py-12 flex flex-col md:flex-row items-center justify-between">
+        <section className="py-4 flex flex-col md:flex-row items-center justify-between">
          
           <div className="w-full md:w-1/2 text-left px-4">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">eBooks</h3>
-            <p className="text-lg text-gray-700 mb-4">
+          <h2 
+            className="text-4xl font-bold text-gray-800 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out" 
+            onClick={() => router.push(`/product/listing/ebook`)}
+          >
+            E-Books
+          </h2>           
+           <p className="text-lg text-gray-700 mb-4">
               Grâce à nos eBooks, vous avez la possibilité de vous entraîner de manière autonome tout en suivant une programmation détaillée et efficace. Chaque eBook propose un plan structuré sur 5 séances par semaine, avec des exercices progressifs pour vous accompagner dans votre transformation physique, que vous cherchiez à prendre du muscle, perdre du poids, gagner en force ou améliorer votre endurance.
             </p>
             <p className="text-lg text-gray-700 mb-4">
@@ -74,9 +88,9 @@ export default function Home() {
               <li>EBook Endurance : 59€</li>
             </ul>
           </div>
-          <div className="w-full md:w-1/2 mb-6 md:mb-0">
+          <div className="w-full md:w-1/2 mb-6 ml-16 md:mb-0">
             <img
-              src="/path/to/ebooks-photo.jpg" // Remplacez par le chemin réel de l'image
+              src="/ebooks.png" // Remplacez par le chemin réel de l'image
               alt="eBooks"
               className="w-full rounded-lg shadow-lg"
             />

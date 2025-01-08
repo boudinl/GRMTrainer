@@ -5,6 +5,7 @@ const NewCodeSchema = new mongoose.Schema(
    
     code: String,
     priceDrop: Number,
+    sponsor : String,
    
   },
   { timestamps: true }

@@ -147,7 +147,7 @@ export default function CommonDetails({ item }) {
                    <button
                     type="button"
                     className={`flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 ${
-                      selectedImage === item.imageUrl ? 'border-blue-500' : 'border-gray-100'
+                      selectedImage === item.imageUrl ? 'border-or' : 'border-gray-100'
                     } text-center`}
                     onClick={() => handleThumbnailClick(item.imageUrl)}
                   >
@@ -165,7 +165,7 @@ export default function CommonDetails({ item }) {
                         key={index}
                         type="button"
                         className={`flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 ${
-                          selectedImage === imageUrl ? 'border-blue-500' : 'border-gray-100'
+                          selectedImage === imageUrl ? 'border-or' : 'border-gray-100'
                         } text-center`}
                         onClick={() => handleThumbnailClick(imageUrl)}
                       >

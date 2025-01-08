@@ -18,7 +18,7 @@ const AddNewProductSchema = Joi.object({
     optionalImagesUrl : Joi.array().optional(),
     productType: Joi.string().valid('product', 'coaching', 'ebook').required(),  // Ajout du champ 'type'
     duration: Joi.number().optional(), // Optionnel, uniquement pour le type 'coaching'
-    ebookFile: Joi.string().optional(),   // Optionnel, uniquement pour le type 'ebook'
+    format: Joi.string().allow('', null).optional(),   // Optionnel, uniquement pour le type 'ebook'
 });
 
 
@@ -38,10 +38,10 @@ export async function POST(req) {
             const extractData = await req.json()
             console.log(extractData);
             const {
-                name, description, price, imageUrl, optionalImagesUrl, category, sizes, deliveryInfo, onSale, priceDrop, productType, duration, ebookFile
+                name, description, price, imageUrl, optionalImagesUrl, category, sizes, deliveryInfo, onSale, priceDrop, productType, duration, format
             } = extractData;
             const { error } = AddNewProductSchema.validate({
-                name, description, price, imageUrl,optionalImagesUrl, category, sizes, deliveryInfo, onSale, priceDrop, productType, duration, ebookFile
+                name, description, price, imageUrl,optionalImagesUrl, category, sizes, deliveryInfo, onSale, priceDrop, productType, duration, format
             })
             console.log(extractData);
             if (error) {
