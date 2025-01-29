@@ -11,6 +11,7 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         bordeaux: '#6a0d1a', // Bordeaux
+        button: '#222623',
         noir: '#000000',     // Noir
         blanc: '#FFFFFF',    // Blanc
         or: '#cfb53b',       // Or
