@@ -1,99 +1,357 @@
 "use client";
 
+import CommonListing from "@/components/CommonListing";
+import ProductTile from "@/components/CommonListing/ProductTile";
+import ProductButtons from "@/components/CommonListing/ProductButtons";
+import { productByProductType } from "@/services/product";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Notification from "@/components/Notification";
 
 export default function Home() {
+  const [hovered, setHovered] = useState(null); // Etat pour savoir quelle image est survolée
+
+  const handleMouseEnter = (index) => {
+    setHovered(index); // Met à jour l'état lorsque l'on survole une image
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(null); // Réinitialise l'état quand le survol est terminé
+  };
   const router = useRouter();
+
+  const [physicalProducts, setPhysicalProducts] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const nextProduct = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % physicalProducts.length);
+    console.log(physicalProducts);
+  };
+
+  const prevProduct = () => {
+    setCurrentIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + physicalProducts.length) % physicalProducts.length
+    );
+  };
+  async function getListOfProducts() {
+    const res = await productByProductType("product");
+
+    if (res.success) {
+      setPhysicalProducts(res.data);
+    }
+    console.log(physicalProducts);
+  }
+
+  useEffect(() => {
+    getListOfProducts();
+  }, []);
   return (
-    <div className=" py-8 px-16 sm:px-6 lg:px-16">
-      <div className="max-w-screen mx-auto text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
-          Que vous souhaitiez transformer votre physique, booster votre énergie ou retrouver un équilibre durable.
-        </h1>
-        <p className="text-xl text-gray-700 mb-12">
-          Je suis là pour vous accompagner à chaque étape. Avec un coaching personnalisé, en ligne ou en présentiel, et des eBooks conçus pour vous guider vers l'excellence, vous avez toutes les clés en main pour réussir. 
-          Ensemble, nous repousserons vos limites, surmonterons chaque obstacle et atteindrons vos objectifs de façon efficace et motivante. C’est le moment de révéler le meilleur de vous-même et de vivre la transformation que vous méritez.
-        </p>
+    <div className=" py-8 px-16  sm:px-6 lg:px-16">
+      <div className="max-w-screen  text-center ">
+        <section className="m-8 w-full  max-w-screen max-h-screen  justify-center items-center ">
+          <h1 className="text-4xl font-extrabold  mb-4 ">
+            Découvre une nouvelle façon de t’entraîner !
+          </h1>
+          <div className="w-full h-full max-w-[1400px] flex flex-col xl:flex-row   ">
+            <div className=" w-full xl:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
+              <video
+                className=" h-full object-contain rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 "
+                autoPlay
+                loop
+                muted
+                playsInline
+                src="/accueilVideo.mov"
+              />
+            </div>
 
-        {/* Coaching en ligne */}
-        <h2 
-            className="text-4xl text-left font-bold text-gray-800 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out" 
-            onClick={() => router.push(`/product/listing/ebook`)}
-          >
-            Coachings
-          </h2>   
-        <section className="mb-16 flex flex-col md:flex-row items-center justify-between">
-          <div className="w-full md:w-1/2 mb-6 md:mb-0 mr-4 flex items-center">
-            <img
-              src="/image5.jpg" // Remplacez par le chemin réel de l'image
-              alt="Coaching en ligne"
-              className="w-full  rounded-xl "/>
-          </div>
-          <div className="w-full md:w-1/2 text-left px-4">
-          
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Coaching en ligne</h3>
-            <p className="text-lg text-gray-700 mb-4">
-              Suivi 3 mois à 90€/mois : Débutez votre transformation physique avec notre programme intensif de 3 mois. Recevez un plan d'entraînement personnalisé, un suivi nutritionnel adapté, et des conseils d'experts pour commencer à voir des résultats concrets et atteindre vos premiers objectifs. Ce programme est idéal pour ceux qui souhaitent initier un changement rapide et significatif.
-            </p>
-            <p className="text-lg text-gray-700 mb-4">
-              Suivi 6 mois à 80€/mois : Amplifiez votre transformation avec notre programme de 6 mois, conçu pour renforcer vos progrès et maximiser vos résultats. Bénéficiez d'un plan d'entraînement avancé, d'un suivi nutritionnel précis et de conseils d'experts pour affiner votre condition physique. Ce programme vous permettra de développer une routine solide et d'obtenir des résultats durables.
-            </p>
-            <p className="text-lg text-gray-700 mb-4">
-              Suivi 12 mois pour 70€/mois : Atteignez votre meilleure forme avec notre programme de transformation complète de 12 mois. Profitez d'un accompagnement personnalisé, d'un suivi nutritionnel détaillé et de conseils d'experts pour transformer votre corps et votre mode de vie en profondeur. Ce programme est conçu pour ceux qui cherchent une transformation totale, durable et à long terme.
-            </p>
+            <div className="flex xl:w-1/2  xl:p-8">
+              <p>
+                Ces offres sont minutieusement conçues pour répondre à vos
+                besoins, que vous soyez débutant ou expert, et quels que soient
+                vos objectifs. Spécialisé dans la perte de poids, j’accompagne
+                également celles et ceux qui souhaitent développer leur masse
+                musculaire, augmenter leur force, améliorer leur endurance ou
+                exceller dans une discipline spécifique. La culture physique,
+                lorsqu’elle est pratiquée de manière structurée et encadrée par
+                un professionnel, peut non seulement offrir des résultats
+                durables mais aussi de profondes satisfactions personnelles. Je
+                vous propose une organisation optimisée de votre temps
+                d’entraînement, avec des programmes parfaitement adaptés à vos
+                besoins. Cette approche personnalisée vous permettra d’éviter de
+                gaspiller votre énergie sur des exercices inefficaces,
+                préservant ainsi votre motivation et accélérant vos progrès.
+                Ensemble, nous maximiserons votre efficacité pour atteindre vos
+                objectifs de manière rapide, durable et en toute sécurité.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Coaching en présentiel */}
-        <section className=" py-4 flex flex-col md:flex-row items-center justify-between mb-4">
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
-            <img
-              src="image8.jpg" // Remplacez par le chemin réel de l'image
-              alt="Coaching en présentiel"
-              className="w-full max-h-[400px] rounded-xl object-contain"
-            />
-          </div>
-          <div className="w-full md:w-2/3 text-left px-4">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Coaching en présentiel</h3>
-            <p className="text-lg text-gray-700 mb-4">
-              Le coaching en présentiel que je propose est entièrement personnalisé et conçu pour s’adapter à vos préférences et objectifs. Vous avez le choix de vous entraîner en extérieur pour profiter du plein air, en salle de sport partenaire pour bénéficier d'un cadre équipé, ou en groupe pour une motivation collective, ou en individuel pour un suivi sur mesure.
-            </p>
-            <p className="text-lg text-gray-700 mb-4">
-              Je propose une large gamme de séances, allant du renforcement musculaire, au stretching, Pilates, HIIT (entraînement fractionné de haute intensité), CAF (cuisses, abdos, fessiers), Body Sculpt et bien d’autres types d'entraînements sur demande. Chaque programme est adapté à vos besoins spécifiques pour garantir des résultats optimaux. Pour un accompagnement personnalisé et des séances sur mesure, un devis est disponible sur demande.
-            </p>
+        {/* Les services */}
+        <section className="mb-16 mt-32 ">
+          <h2
+            className="text-4xl text-left font-bold text-stone-100 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out"
+            onClick={() => router.push(`/product/listing/all-products`)}
+          >
+            Mes prestations
+          </h2>
+
+          <div
+            className="w-full relative md:w-full flex flex-wrap  justify-between border-4 border-bordeaux rounded-lg overflow-hidden max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto "
+            onMouseLeave={handleMouseLeave}
+          >
+            <div
+              className={`flex flex-col items-center w-full md:w-1/3 relative transition-all duration-300 ${
+                hovered === 1
+                  ? "transform md:translate-x-[+200%] translate-y-[-0%] md:translate-y-0 "
+                  : ""
+              } ${
+                hovered === null || hovered === 1
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
+              onMouseEnter={() => handleMouseEnter(1)}
+              onClick={() => handleMouseEnter(1)}
+            >
+              <img
+                src="/MesSuivis.jpg" // Remplacez par le chemin réel de l'image
+                alt="Mes suivis"
+                className="w-full h-auto max-h-[500px] object-cover object-top cursor-pointer"
+              />
+            </div>
+
+            <div
+              className={`flex flex-col items-center w-full md:w-1/3 relative transition-all duration-300 ${
+                hovered === 2
+                  ? "transform md:translate-x-[-100%] translate-y-[-100%] md:translate-y-0"
+                  : ""
+              } ${
+                hovered === null || hovered === 2
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
+              onMouseEnter={() => handleMouseEnter(2)}
+              onClick={() => handleMouseEnter(2)}
+            >
+              <img
+                src="MethodeGrem.jpg" // Remplacez par le chemin réel de l'image
+                alt="La méthode GRM"
+                className="w-full h-auto max-h-[500px] object-cover cursor-pointer object-top"
+              />
+            </div>
+
+            <div
+              className={`flex flex-col items-center w-full md:w-1/3 relative transition-all duration-300 ${
+                hovered === 3
+                  ? "transform md:translate-x-[-200%] translate-y-[-200%] md:translate-y-0 "
+                  : ""
+              } ${
+                hovered === null || hovered === 3
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
+              onMouseEnter={() => handleMouseEnter(3)}
+              onClick={() => handleMouseEnter(3)}
+            >
+              <img
+                src="MesProgrammes.jpg" // Remplacez par le chemin réel de l'image
+                alt="Mes programmes"
+                className="object-top w-full h-auto max-h-[500px] object-cover cursor-pointer"
+              />
+            </div>
+            {hovered === 1 && (
+              <div className="absolute inset-0 flex left-0 top-1/3 md:top-0 md:right-1/3 md:w-2/3 items-center justify-center bg-black  z-10">
+                <div className="w-full h-full flex  items-center justify-center space-x-8 px-4 text-center">
+                  <div className="text-white w-full max-w-4xl md:max-h-[600px] overflow-y-auto">
+                    <h1 className="text-or text-4xl font-bold mt-4">
+                      Mes suivis
+                    </h1>
+                    <div className="flex flex-col md:flex-row md:space-x-8">
+                      <div className="flex-1">
+                        <p className="text-lg m-2">SUIVI EN LIGNE</p>
+                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
+                          <li>1 accès à l’application</li>
+                          <li>1 programme personnalisé</li>
+                          <li> 1 plan alimentaire</li>
+                          <li>1 BOOSTBOX </li>
+                          <li>Des séances et exercices vidéo</li>
+                          <li>Des documents explicatifs</li>
+                          <li>Suivi de la progression</li>
+                          <li>Echanges quotidien via WhatsApp</li>
+                          <li> Devis</li>
+                        </ul>
+                      </div>
+
+                      <div className="flex-1">
+                        <p className="text-lg m-2">SUIVI EN PRESENTIEL</p>
+                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
+                          <li>X séances en présentiel</li>
+                          <li>1 accès à l’application</li>
+                          <li> 1 programme personnalisé</li>
+                          <li>1 plan alimentaire</li>
+                          <li>1 BOOSTBOX</li>
+                          <li>Des séances et exercices vidéo</li>
+                          <li> Des documents explicatifs</li>
+                          <li>Suivi de la progression</li>
+                          <li>Echanges quotidien via WhatsApp</li>
+                          <li>Devis</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <a
+                      href="mailto:trainer.grm@gmail.com?subject=Demande%20de%20devis&body=Bonjour,%20je%20souhaite%20demander%20un%20devis."
+                      className="mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium  tracking-wide text-or mb-4 text-center"
+                    >
+                      Me contacter
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+            {hovered === 2 && (
+              <div className="absolute inset-0 flex left-0 top-1/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10">
+                <div className="w-full h-full flex items-center justify-center space-x-8 px-4 text-center">
+                  <div className="text-white w-full max-w-4xl md:max-h-[400px] overflow-y-auto">
+                    <h1 className="text-or text-4xl font-bold mt-4">
+                      La méthode GRM
+                    </h1>
+                    <p className="text-lg text-white mb-4"></p>
+                    <ul className="list-disc list-inside marker:text-white text-white text-left lg:pl-32">
+                      <li>1 accès à l’application</li>
+                      <li> 1 programme perte de poids 12 SEMAINES</li>
+                      <li>1 plan alimentaire</li>
+                      <li>1 BOOSTBOX</li>
+                      <li>Des séances et exercices vidéo</li>
+                      <li> Des documents explicatifs</li>
+                      <li>Suivi de la progression</li>
+                      <li>Echanges quotidien via WhatsApp</li>
+                      <li>150 €</li>
+                    </ul>
+                    <button
+                      className={
+                        "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-or mb-4"
+                      }
+                      onClick={() => router.push("/product/listing/coaching")}
+                    >
+                      Accèder à la boutique
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            {hovered === 3 && (
+              <div className="absolute inset-0 flex left-0 top-1/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10">
+                <div className="w-full h-full flex items-center justify-center space-x-8 px-4 text-center">
+                  <div className="text-white w-full max-w-4xl md:max-h-[400px] overflow-y-auto">
+                    <h1 className="text-or text-4xl font-bold mt-4">
+                      Mes programmes
+                    </h1>
+                    <div className="flex flex-col md:flex-row md:space-x-8">
+                      <div className="flex-1">
+                        <p className="text-lg m-2">
+                          PROGRAMMES 8 SEMAINES PERSONNALISÉ
+                        </p>
+                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
+                          <li>1 accès à l’application</li>
+                          <li> 1 programme 8 SEMAINES personnalisé </li>
+
+                          <li>Des séances et exercices vidéo</li>
+                          <li> Des documents explicatifs</li>
+                          <li>Suivi de la progression</li>
+                          <li>Echanges hebdomadaire via WhatsApp</li>
+                          <li>50€ </li>
+                        </ul>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-lg m-2">PROGRAMMES 8 SEMAINES</p>
+                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
+                          <li>1 accès à l’application</li>
+                          <li> 1 programme 8 SEMAINES type </li>
+                          <li>Des séances et exercices vidéo</li>
+                          <li> Des documents explicatifs</li>
+                          <li>Suivi de la progression</li>
+                          <li>Echanges hebdomadaire via WhatsApp</li>
+                          <li>30€ </li>
+                        </ul>
+                      </div>
+                    </div>
+                    {/* <ul className="list-disc text-lg text-white ml-6">
+                      <li>EBook prise de masse musculaire : 59€</li>
+                      <li>EBook perte de poids : 59€</li>
+                      <li>EBook Force : 59€</li>
+                      <li>EBook Hybride (force et endurance) : 59€</li>
+                      <li>EBook Endurance : 59€</li>
+                    </ul> */}
+                    <button
+                      className={
+                        "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-or mb-4"
+                      }
+                      onClick={() => router.push("/product/listing/ebook")}
+                    >
+                      Accèder à la boutique
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
+        <section className="py-4 flex flex-col md:flex-row items-center justify-between mb-4">
+          <div className="w-full text-left px-4">
+            <h3 className="text-4xl font-bold text-stone-100 mb-8">
+              Mes produits
+            </h3>
 
-        {/* eBooks */}
-        <section className="py-4 flex flex-col md:flex-row items-center justify-between">
-         
-          <div className="w-full md:w-1/2 text-left px-4">
-          <h2 
-            className="text-4xl font-bold text-gray-800 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out" 
-            onClick={() => router.push(`/product/listing/ebook`)}
-          >
-            E-Books
-          </h2>           
-           <p className="text-lg text-gray-700 mb-4">
-              Grâce à nos eBooks, vous avez la possibilité de vous entraîner de manière autonome tout en suivant une programmation détaillée et efficace. Chaque eBook propose un plan structuré sur 5 séances par semaine, avec des exercices progressifs pour vous accompagner dans votre transformation physique, que vous cherchiez à prendre du muscle, perdre du poids, gagner en force ou améliorer votre endurance.
-            </p>
-            <p className="text-lg text-gray-700 mb-4">
-              En plus des séances détaillées, vous trouverez de précieuses informations sur la nutrition, les bonnes techniques d'entraînement, et des conseils pratiques pour maximiser vos résultats tout en évitant les erreurs courantes. Ces eBooks sont conçus pour vous donner tous les outils nécessaires afin de progresser seul, tout en bénéficiant d'un programme complet et adapté à vos besoins.
-            </p>
-            <ul className="list-disc text-lg text-gray-700 ml-6">
-              <li>EBook prise de masse musculaire : 59€</li>
-              <li>EBook perte de poids : 59€</li>
-              <li>EBook Force : 59€</li>
-              <li>EBook Hybride (force et endurance) : 59€</li>
-              <li>EBook Endurance : 59€</li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/2 mb-6 ml-16 md:mb-0">
-            <img
-              src="/ebooks.png" // Remplacez par le chemin réel de l'image
-              alt="eBooks"
-              className="w-full rounded-lg shadow-lg"
-            />
+            {physicalProducts && physicalProducts.length > 0 ? (
+              <div>
+                <p>
+                  <i>Livraison gratuite sur tous les produits ! </i>
+                </p>
+                <div className="grid grid-cols-3 gap-4 justify-center items-center ">
+                  <button
+                    onClick={prevProduct}
+                    className="bg-stone-100 text-gray-900 p-2 text-2xl rounded-full justify-self-end z-10 border-2 border-or"
+                  >
+                    &lt;
+                  </button>
+                  <div className=" flex justify-center items-center ">
+                    <article
+                      className="bg-black border-or rounded-md relative flex flex-col overflow-hidden border-2 cursor-pointer "
+                      key={currentIndex}
+                    >
+                      {/* Assurez-vous que l'élément actuel existe avant d'afficher le produit */}
+                      <ProductTile item={physicalProducts[currentIndex]} />
+                      <ProductButtons item={physicalProducts[currentIndex]} />
+                    </article>
+                  </div>
+
+                  <button
+                    onClick={nextProduct}
+                    className="bg-stone-100 text-gray-900 text-2xl p-2 rounded-full justify-self-start z-10 border-2 border-or"
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p className="text-stone-100">
+                Aucun produit disponible en ce moment !
+              </p>
+            )}
+
+            {/* Affichage des points de navigation, seulement si il y a des produits */}
+            {physicalProducts.length > 0 && (
+              <div className="flex justify-center mt-4">
+                {physicalProducts.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`mx-2 w-2 h-2 rounded-full ${
+                      index === currentIndex ? "bg-gray-300" : "bg-gray-700"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -107,12 +365,11 @@ export default function Home() {
             Contactez-moi maintenant
           </button>
         </section> */}
+        <Notification></Notification>
       </div>
     </div>
   );
 }
-
-
 
 // import { GlobalContext } from "@/context";
 // import { getAllAdminProducts } from "@/services/product";
@@ -142,7 +399,7 @@ export default function Home() {
 //         console.error('Erreur dans useEffect:', error);
 //       }
 //     };
-  
+
 //     fetchData();
 //   }, []);
 

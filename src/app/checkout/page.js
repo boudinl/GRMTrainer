@@ -20,16 +20,16 @@ export default function Checkout() {
     setAddresses,
     checkoutFormData,
     setCheckoutFormData,
-    discount, setDiscount
+    discount,
+    setDiscount,
   } = useContext(GlobalContext);
 
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isOrderProcessing, setIsOrderProcessing] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
 
-// État pour le code promo
+  // État pour le code promo
   const [promoCode, setPromoCode] = useState("");
-
 
   const router = useRouter();
   const params = useSearchParams();
@@ -41,10 +41,12 @@ export default function Checkout() {
     (total, item) => item.productID.price + total,
     0
   );
-  
+
   const discountAmount = totalBeforeDiscount * (discount / 100);
-  
-  const totalPrice = parseFloat((totalBeforeDiscount - discountAmount).toFixed(2));
+
+  const totalPrice = parseFloat(
+    (totalBeforeDiscount - discountAmount).toFixed(2)
+  );
 
   console.log(cartItems);
 
@@ -62,17 +64,17 @@ export default function Checkout() {
       setCheckoutFormData({
         ...checkoutFormData,
         orderPrice: totalPrice,
-        totalPrice: totalPrice+4.19
+        totalPrice: totalPrice + 4.19,
       });
     }
   }, [user]);
-useEffect(()=>{
-  setCheckoutFormData({
-    ...checkoutFormData,
-    orderPrice: totalPrice,
-    totalPrice: totalPrice+4.19
-  });
-}, [discount])
+  useEffect(() => {
+    setCheckoutFormData({
+      ...checkoutFormData,
+      orderPrice: totalPrice,
+      totalPrice: totalPrice + 4.19,
+    });
+  }, [discount]);
   useEffect(() => {
     async function createFinalOrder() {
       const isStripe = JSON.parse(localStorage.getItem("stripe"));
@@ -93,31 +95,31 @@ useEffect(()=>{
           shippingAddress: getCheckoutFormData.shippingAddress,
           orderItems: cartItems.map((item) => ({
             qty: 1,
-            size : item.size,
+            size: item.size,
             product: item.productID,
           })),
           paymentMethod: "Stripe",
           deliveryFee: 4.19,
-          orderPrice : getCheckoutFormData.orderPrice,
+          orderPrice: getCheckoutFormData.orderPrice,
           totalPrice: getCheckoutFormData.totalPrice,
           isPaid: true,
           isProcessing: true,
           paidAt: new Date(),
         };
-        console.log('creatre final chekout ', createFinalCheckoutFormData)
+        console.log("creatre final chekout ", createFinalCheckoutFormData);
         const res = await createNewOrder(createFinalCheckoutFormData);
 
         if (res.success) {
           setIsOrderProcessing(false);
           setOrderSuccess(true);
           toast.success(res.message, {
-            position: 'top-right',
+            position: "top-right",
           });
         } else {
           setIsOrderProcessing(false);
           setOrderSuccess(false);
           toast.error(res.message, {
-            position: 'top-right',
+            position: "top-right",
           });
         }
       }
@@ -156,38 +158,37 @@ useEffect(()=>{
 
     const createLineItems = cartItems.map((item) => {
       const itemPrice = item.productID.price;
-    
-    // Calculer la réduction pour chaque produit
-    const discountAmount = itemPrice * (discount / 100);
-    
-    // Calculer le prix après réduction pour chaque produit
-    const discountedPrice = Math.round((itemPrice - discountAmount)*100);
 
-    return {
+      // Calculer la réduction pour chaque produit
+      const discountAmount = itemPrice * (discount / 100);
+
+      // Calculer le prix après réduction pour chaque produit
+      const discountedPrice = Math.round((itemPrice - discountAmount) * 100);
+
+      return {
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: item.productID.name,
+            images: [item.productID.imageUrl], // Ajouter l'image du produit
+          },
+          unit_amount: discountedPrice, // Prix après réduction (en centimes)
+        },
+        quantity: 1, // Chaque produit est pris en quantité 1
+      };
+    });
+    createLineItems.push({
       price_data: {
         currency: "eur",
         product_data: {
-          name: item.productID.name,
-          images: [item.productID.imageUrl], // Ajouter l'image du produit
+          name: "Frais de livraison",
         },
-        unit_amount: discountedPrice , // Prix après réduction (en centimes)
+        unit_amount: Math.round(4.19 * 100), // Prix après réduction (en centimes)
       },
       quantity: 1, // Chaque produit est pris en quantité 1
-    };
-  });
-  createLineItems.push( {
-    price_data: {
-      currency: "eur",
-      product_data: {
-        name: 'Frais de livraison',
-     
-      },
-      unit_amount: Math.round(4.19 *100) , // Prix après réduction (en centimes)
-    },
-    quantity: 1, // Chaque produit est pris en quantité 1
-  })
-    console.log(createLineItems)
-   
+    });
+    console.log(createLineItems);
+
     const res = await callStripeSession(createLineItems);
     setIsOrderProcessing(true);
     localStorage.setItem("stripe", true);
@@ -202,27 +203,23 @@ useEffect(()=>{
 
   console.log(checkoutFormData);
 
-  async function handleApplySaleCode(){
-    
-    const res = await applySaleCode(promoCode)
-    
-    if (res.success) {
+  async function handleApplySaleCode() {
+    const res = await applySaleCode(promoCode);
 
+    if (res.success) {
       toast.success(res.message, {
-        position: 'top-right',
+        position: "top-right",
       });
-      console.log(res.data.priceDrop)
-      setDiscount(res.data.priceDrop)
-     
-      console.log('TJE CHECKOUT',checkoutFormData)
+      console.log(res.data.priceDrop);
+      setDiscount(res.data.priceDrop);
+
+      console.log("TJE CHECKOUT", checkoutFormData);
     } else {
-   
       toast.error(res.message, {
-        position: 'top-right',
+        position: "top-right",
       });
     }
   }
-
 
   useEffect(() => {
     if (orderSuccess) {
@@ -241,8 +238,8 @@ useEffect(()=>{
             <div className="bg-white shadow">
               <div className="px-4 py-6 sm:px-8 sm:py-10 flex flex-col gap-5">
                 <h1 className="font-bold text-lg">
-                  Votre paiement est réussi vous allez être redirigé vers vos commandes dans 2 secondes !
-              
+                  Votre paiement est réussi vous allez être redirigé vers vos
+                  commandes dans 2 secondes !
                 </h1>
               </div>
             </div>
@@ -267,7 +264,7 @@ useEffect(()=>{
 
   return (
     <div>
-      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 bg-white m-8 rounded-lg text-black">
         <div className="px-4 pt-8">
           <p className="font-medium text-xl">Résumé de la commande</p>
           <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-5">
@@ -296,9 +293,11 @@ useEffect(()=>{
               <div>Votre panier est vide</div>
             )}
           </div>
-              {/* Champ de code promo */}
-              <div className="mt-6">
-            <label className="block text-sm font-medium text-gray-900">Code Promo</label>
+          {/* Champ de code promo */}
+          <div className="mt-6">
+            <label className="block text-sm font-medium text-gray-900">
+              Code Promo
+            </label>
             <input
               type="text"
               value={promoCode}
@@ -306,14 +305,14 @@ useEffect(()=>{
               className="mt-2 block w-full p-2 border border-gray-300 rounded"
               placeholder="Entrez votre code promo"
             />
-              {discount ? (
-                    <p className="mr-3 text-sm font-semibold">{`-(${discount}%)de réduction`}</p>
-                ) : null}
+            {discount ? (
+              <p className="mr-3 text-sm font-semibold">{`-(${discount}%)de réduction`}</p>
+            ) : null}
             <button
               onClick={() => {
-                handleApplySaleCode()
+                handleApplySaleCode();
               }}
-            className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+              className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
             >
               Appliquer
             </button>
@@ -321,7 +320,7 @@ useEffect(()=>{
         </div>
         <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
           <p className="text-xl font-medium">Détails de la commande</p>
-          
+
           <p className="text-gray-400 font-bold">
             Complétez votre commande en selectionnant une adresse
           </p>
@@ -340,7 +339,7 @@ useEffect(()=>{
                   <p>Code Postal : {item.postalCode}</p>
                   <p>Ville : {item.city}</p>
                   <p>Pays : {item.country}</p>
-                
+
                   <button className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                     {item._id === selectedAddress
                       ? "Adresse selectionnée"
@@ -361,35 +360,33 @@ useEffect(()=>{
           <div className="mt-6 border-t border-b py-2">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Sous-total</p>
-              <p className={`text-lg font-bold text-gray-900 ${discount ? "line-through" : ""}`}>
-               
-                {cartItems && cartItems.length
-                  ? totalBeforeDiscount
-                  : "0"}
-                   €
+              <p
+                className={`text-lg font-bold text-gray-900 ${
+                  discount ? "line-through" : ""
+                }`}
+              >
+                {cartItems && cartItems.length ? totalBeforeDiscount : "0"}€
               </p>
-              {discount? (
-                    <p className="mr-3 text-sm font-semibold text-red-700">
-                      {`${totalPrice}€`}</p>
-                ) : null}
+              {discount ? (
+                <p className="mr-3 text-sm font-semibold text-red-700">
+                  {`${totalPrice}€`}
+                </p>
+              ) : null}
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Frais de livraison</p>
-              <p className="text-lg font-bold text-gray-900">4.19€</p>
+              <p className="text-sm font-medium text-gray-900">
+                Frais de livraison
+              </p>
+              <p className="text-lg font-bold text-gray-900">Gratuit</p>
             </div>
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className={`text-lg font-bold text-gray-900 `}>
-                
                 {cartItems && cartItems.length
-                  ? 
-                  parseFloat((totalPrice + 4.19).toFixed(2))
-                  
+                  ? parseFloat(totalPrice.toFixed(2))
                   : "0"}
-                  €
+                €
               </p>
-           
-              
             </div>
             <div className="pb-10">
               <button

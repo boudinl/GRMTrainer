@@ -15,9 +15,9 @@ export const navOptions = [
     path: "/product/listing/all-products",
     subItems: [
       {
-        id : "product",
-        label : "Produits",
-        path: "/product/listing/products"
+        id: "product",
+        label: "Produits",
+        path: "/product/listing/products",
       },
       {
         id: "coaching",
@@ -28,15 +28,14 @@ export const navOptions = [
         id: "ebooks",
         label: "E-books",
         path: "/product/listing/ebook",
-      }
-    ]
+      },
+    ],
   },
   {
     id: "opinions",
     label: "Mes avis",
     path: "/opinions",
   },
-
 ];
 
 export const adminNavOptions = [
@@ -62,64 +61,44 @@ export const adminNavOptions = [
   },
 ];
 
-
-
-
 export const registrationFormControls = [
   {
-    id: 'name',
-    type: 'text',
-    placeholder: 'Entrez votre nom',
-    label: 'Nom',
-    componentType: 'input'
+    id: "name",
+    type: "text",
+    placeholder: "Entrez votre nom",
+    label: "Nom",
+    componentType: "input",
   },
   {
-    id: 'email',
-    type: 'email',
-    placeholder: 'Entrez votre email',
-    label: 'Email',
-    componentType: 'input'
+    id: "email",
+    type: "email",
+    placeholder: "Entrez votre email",
+    label: "Email",
+    componentType: "input",
   },
   {
-    id: 'password',
-    type: 'password',
-    placeholder: 'Entrez votre mot de passe',
-    label: 'Mot de passe',
-    componentType: 'input'
-  },
-  {
-    id: 'role',
-    type: '',
-    placeholder: '',
-    label: 'Role',
-    componentType: 'select',
-    options: [
-      {
-        id: 'admin',
-        label: 'Admin',
-      },
-      {
-        id: 'customer',
-        label: 'Client',
-      }
-    ]
+    id: "password",
+    type: "password",
+    placeholder: "Entrez votre mot de passe",
+    label: "Mot de passe",
+    componentType: "input",
   },
 ];
 
 export const loginFormControls = [
   {
-    id: 'email',
-    type: 'email',
-    placeholder: 'Entrez votre email',
-    label: 'Email',
-    componentType: 'input'
+    id: "email",
+    type: "email",
+    placeholder: "Entrez votre email",
+    label: "Email",
+    componentType: "input",
   },
   {
-    id: 'password',
-    type: 'password',
-    placeholder: 'Entrez votre mot de passe',
-    label: 'Mot de passe',
-    componentType: 'input'
+    id: "password",
+    type: "password",
+    placeholder: "Entrez votre mot de passe",
+    label: "Mot de passe",
+    componentType: "input",
   },
 ];
 export const adminAddProductformControls = [
@@ -168,7 +147,7 @@ export const adminAddProductformControls = [
         label: "Enfant",
       },
     ],
-    visibleFor: ["product"]
+    visibleFor: ["product"],
   },
   {
     id: "deliveryInfo",
@@ -207,7 +186,7 @@ export const adminAddProductformControls = [
     type: "",
     placeholder: "",
     label: "Tailles",
-    componentType: "tile",  // On peut utiliser un TileComponent pour afficher les tailles
+    componentType: "tile", // On peut utiliser un TileComponent pour afficher les tailles
     visibleFor: ["product"], // Ce champ est visible seulement pour les vêtements
   },
   // Champ conditionnel pour la durée du coaching
@@ -217,7 +196,7 @@ export const adminAddProductformControls = [
     placeholder: "Enter coaching duration (in months)",
     label: "Durée du coaching (engagement)",
     componentType: "input",
-    visibleFor: ["coaching"],  // Ce champ est visible seulement pour les coaching
+    visibleFor: ["coaching"], // Ce champ est visible seulement pour les coaching
   },
   // Champ conditionnel pour l'URL de l'ebook
   {
@@ -226,11 +205,9 @@ export const adminAddProductformControls = [
     placeholder: "Enter Ebook URL",
     label: "Ebook URL",
     componentType: "input",
-    visibleFor: ["ebook"],  // Ce champ est visible seulement pour les ebooks
+    visibleFor: ["ebook"], // Ce champ est visible seulement pour les ebooks
   },
 ];
-
-
 
 export const AvailableSizes = [
   {
@@ -258,11 +235,10 @@ export const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 export const firebaseStorageURL = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_URL;
-
 
 export const addNewAddressFormControls = [
   {
@@ -340,4 +316,4 @@ export const addNewOpinionForm = [
     label: "Signature",
     componentType: "input",
   },
-]
+];

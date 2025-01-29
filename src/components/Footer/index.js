@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export default function Navbar() {
     return (
-        <footer className="bg-bordeaux py-6 border-t-4 border-or flex justify-start items-center">
+        <footer className="bg-black py-6 border-t-4 border-or flex justify-start items-center">
             <div className="flex flex-col md:flex-row items-center max-w-4xl w-full">
                 <div className="flex flex-col items-center md:mr-6">
                     <img
