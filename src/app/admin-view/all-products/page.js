@@ -1,14 +1,13 @@
+import CommonListing from "@/components/CommonListing";
+import { getAllAdminProducts } from "@/services/product";
 
-import CommonListing from "@/components/CommonListing"
-import { getAllAdminProducts } from "@/services/product"
+export const dynamic = "force-dynamic";
+export default async function AdminAllProducts() {
+  const allAdminProducts = await getAllAdminProducts(); // Appel à la fonction asynchrone
 
-
-export default async function AdminAllProducts(){
-    
-    const allAdminProducts = await getAllAdminProducts('http://localhost:3000')
-   
-    return (
-          <CommonListing data={allAdminProducts && allAdminProducts.data}></CommonListing>
-    )
-      
+  return (
+    <CommonListing
+      data={allAdminProducts && allAdminProducts.data}
+    ></CommonListing>
+  );
 }

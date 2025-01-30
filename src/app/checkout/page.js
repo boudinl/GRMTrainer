@@ -32,7 +32,18 @@ export default function Checkout() {
   const [promoCode, setPromoCode] = useState("");
 
   const router = useRouter();
-  const params = useSearchParams();
+  const [params, setParams] = useState(null);
+  // const params = useSearchParams();
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search); // Récupérer les paramètres
+    const paramsObject = {};
+
+    queryParams.forEach((value, key) => {
+      paramsObject[key] = value;
+    });
+
+    setParams(paramsObject); // Mettre à jour l'état avec les paramètres récupérés
+  }, []);
 
   const publishableKey = process.env.STRIPE_PUBLIC_KEY_TEST;
   const stripePromise = loadStripe(publishableKey);
@@ -81,7 +92,7 @@ export default function Checkout() {
 
       if (
         isStripe &&
-        params.get("status") === "success" &&
+        params.status === "success" &&
         cartItems &&
         cartItems.length > 0
       ) {
@@ -126,7 +137,7 @@ export default function Checkout() {
     }
 
     createFinalOrder();
-  }, [params.get("status"), cartItems]);
+  }, [params.status, cartItems]);
 
   function handleSelectedAddress(getAddress) {
     if (getAddress._id === selectedAddress) {
