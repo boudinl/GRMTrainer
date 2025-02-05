@@ -32,7 +32,7 @@ export default function Account() {
 
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [currentEditedAddressId, setCurrentEditedAddressId] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
 
   async function extractAllAddresses() {
     setPageLevelLoader(true);
@@ -125,8 +125,8 @@ export default function Account() {
 
   return (
     <section>
-      <div className="mx-auto bg-gray-100 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow">
+      <div className="mx-auto  px-4 sm:px-6 lg:px-8">
+        <div className="bg-black shadow">
           <div className="p-6 sm:p-12">
             <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
               {/* we have render random user image here */}
@@ -138,8 +138,11 @@ export default function Account() {
               <p>{user?.email}</p>
               <p>{user?.role}</p>
             </div>
-            <button onClick={()=>router.push('/orders')} className="mt-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
-             Consulter vos commandes
+            <button
+              onClick={() => router.push("/orders")}
+              className="mt-5  inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            >
+              Consulter vos commandes
             </button>
             <div className="mt-6">
               <h1 className="font-bold text-lg">Vos adresses :</h1>
@@ -160,16 +163,16 @@ export default function Account() {
                         <p>Code postal : {item.postalCode}</p>
                         <p>Ville : {item.city}</p>
                         <p>Pays : {item.country}</p>
-                       
+
                         <button
                           onClick={() => handleUpdateAddress(item)}
-                          className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                          className="mt-5 mr-5 inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
                         >
                           Modifier
                         </button>
                         <button
                           onClick={() => handleDelete(item._id)}
-                          className="mt-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                          className="mt-5  inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
                         >
                           {componentLevelLoader &&
                           componentLevelLoader.loading &&
@@ -189,7 +192,10 @@ export default function Account() {
                       </div>
                     ))
                   ) : (
-                    <p>Pas d'adresse trouvé ! S'il vous plait ajouter une adresse ci-dessous</p>
+                    <p>
+                      Pas d'adresse trouvé ! S'il vous plait ajouter une adresse
+                      ci-dessous
+                    </p>
                   )}
                 </div>
               )}
@@ -197,14 +203,16 @@ export default function Account() {
             <div className="mt-4">
               <button
                 onClick={() => setShowAddressForm(!showAddressForm)}
-                className="mt-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                className="mt-5  inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
               >
-                {showAddressForm ? "Cacher le formulaire d'adresse" : "Ajotuer une nouvelle adresse"}
+                {showAddressForm
+                  ? "Cacher le formulaire d'adresse"
+                  : "Ajotuer une nouvelle adresse"}
               </button>
             </div>
             {showAddressForm ? (
-              <div className="flex flex-col mt-5 justify-center pt-4 items-center">
-                <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-8">
+              <div className="flex flex-col mt-5 justify-center p-4 items-center bg-white rounded-md">
+                <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-8 ">
                   {addNewAddressFormControls.map((controlItem) => (
                     <InputComponent
                       type={controlItem.type}

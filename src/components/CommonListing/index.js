@@ -31,13 +31,13 @@ export default function CommonListing({ data }) {
 
   return (
     <section className=" py-5 sm:py-2 mt-16">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto my-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="mt-5">
           {Object.keys(groupedProducts).map((type) => (
             <div key={type} className="mb-5">
               <h2 className="text-3xl font-semibold mb-2 capitalize">
                 {type === "coaching"
-                  ? "Coaching"
+                  ? "Programmes"
                   : type === "product"
                   ? "Produits"
                   : type === "ebook"

@@ -11,7 +11,7 @@ export const navOptions = [
   },
   {
     id: "listing",
-    label: "Tous les services",
+    label: "Mes prestations",
     path: "/product/listing/all-products",
     subItems: [
       {
@@ -21,7 +21,7 @@ export const navOptions = [
       },
       {
         id: "coaching",
-        label: "Coachings",
+        label: "Programmes",
         path: "/product/listing/coaching",
       },
       {

@@ -28,12 +28,12 @@ export default function Orders() {
 
       setAllOrdersForUser(res.data);
       toast.success(res.message, {
-        position: 'top-right',
+        position: "top-right",
       });
     } else {
       setPageLevelLoader(false);
       toast.error(res.message, {
-        position: 'top-right',
+        position: "top-right",
       });
     }
   }
@@ -65,11 +65,11 @@ export default function Orders() {
             <div className="px-4 py-6 sm:px-8 sm:py-10">
               <div className="flow-root">
                 {allOrdersForUser && allOrdersForUser.length ? (
-                  <ul className="flex flex-col gap-4">
+                  <ul className="flex flex-col gap-4 text-black">
                     {allOrdersForUser.map((item) => (
                       <li
                         key={item._id}
-                        className="bg-gray-200 shadow p-5 flex flex-col space-y-3 py-6 text-left"
+                        className="bg-white shadow p-5 flex flex-col space-y-3 py-6 text-left"
                       >
                         <div className="flex">
                           <h1 className="font-bold text-lg mb-3 flex-1">
@@ -89,7 +89,7 @@ export default function Orders() {
                             <div key={index} className="shrink-0">
                               <img
                                 alt="Order Item"
-                                className="h-24 w-24 max-w-full rounded-lg object-cover"
+                                className="h-24 w-24 max-w-full rounded-lg object-cover bg-black"
                                 src={
                                   orderItem &&
                                   orderItem.product &&
@@ -115,7 +115,9 @@ export default function Orders() {
                       </li>
                     ))}
                   </ul>
-                ) : (<div>Vous n'avez pas de commandes </div>)}
+                ) : (
+                  <div>Vous n'avez pas de commandes </div>
+                )}
               </div>
             </div>
           </div>

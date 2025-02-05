@@ -7,7 +7,7 @@ export default function ProductTile({ item }) {
 
   return (
     <div onClick={() => router.push(`/product/${item._id}`)}>
-      <div className="overflow-hidden aspect-w-1 aspect-h-1 h-55">
+      <div className="overflow-hidden aspect-w-1 aspect-h-1  h-64 sm:h-72 md:h-80">
         <img
           src={item.imageUrl}
           alt="ProductImage"

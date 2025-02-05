@@ -13,7 +13,7 @@ import CartModal from "../CartModal";
 
 function NavItems({ isModalView = false, isAdminView, router }) {
   const [openDropdown, setOpenDropdown] = useState(null);
-
+  const { showNavModal, setShowNavModal } = useContext(GlobalContext);
   const toggleDropdown = (id) => {
     if (openDropdown === id) {
       setOpenDropdown(null); // Ferme le sous-menu si on clique sur le même
@@ -48,7 +48,7 @@ function NavItems({ isModalView = false, isAdminView, router }) {
         className={`flex p-4 md:p-0 mt-4 font-medium rounded-lg md:border-0 bg-black ${
           isModalView
             ? "border-none flex-col "
-            : "border border-gray-100 flex-row md:space-x-8 md:mt-0"
+            : "border border-gray-100 flex-row md:space-x-8 xl:space-x-8 lg:space-x-2 md:mt-0"
         }`}
       >
         {isAdminView
@@ -70,7 +70,10 @@ function NavItems({ isModalView = false, isAdminView, router }) {
                 >
                   <button
                     className="cursor-pointer block py-3 pl-3 pr-4 text-white rounded md:p-0"
-                    onClick={() => router.push(item.path)} // Lien pour la page "Tous les produits"
+                    onClick={() => {
+                      setShowNavModal(false);
+                      router.push(item.path);
+                    }} // Lien pour la page "Tous les produits"
                   >
                     {item.label}
                   </button>
@@ -93,16 +96,19 @@ function NavItems({ isModalView = false, isAdminView, router }) {
 
                   {/* Menu déroulant sous "Tous les produits" */}
                   <ul
-                    className={`absolute left-0 w-full bg-black border border-gray-100 mt-2 rounded-lg shadow-md ${
+                    className={`absolute left-0 w-full bg-black border border-gray-100 mt-2 rounded-lg shadow-md  ${
                       openDropdown === item.id ? "block" : "hidden"
                     }`}
-                    style={{ top: "100%", zIndex: 10 }}
+                    style={{ top: "100%", zIndex: 50 }}
                   >
                     {item.subItems.map((subItem) => (
                       <li
                         key={subItem.id}
-                        onClick={() => router.push(subItem.path)}
-                        className="py-2 px-4 cursor-pointer hover:bg-gray-200"
+                        onClick={() => {
+                          setShowNavModal(false);
+                          router.push(subItem.path);
+                        }}
+                        className="py-2 px-4 cursor-pointer hover:bg-gray-600 rounded-lg "
                       >
                         {subItem.label}
                       </li>
@@ -112,7 +118,10 @@ function NavItems({ isModalView = false, isAdminView, router }) {
               ) : (
                 // Autres liens dans le menu
                 <li
-                  onClick={() => router.push(item.path)}
+                  onClick={() => {
+                    router.push(item.path);
+                    setShowNavModal(false);
+                  }}
                   className="cursor-pointer block py-3 pl-3 pr-4 text-white rounded md:p-0 z-30"
                   key={item.id}
                 >
@@ -162,10 +171,13 @@ export default function Navbar() {
   const isAdminView = pathName.includes("admin-view");
   return (
     <>
-      <nav className="bg-black fixed w-full z-20 top-0 left-0 border-b-4 border-or">
-        <div className="max-w-screen-full flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="bg-black fixed w-full z-20 top-0 left-0 border-b-4 border-or ">
+        <div className="max-w-screen-full flex flex-wrap items-center justify-between mx-auto py-2 md:p-4">
           <div
-            onClick={() => router.push("/")}
+            onClick={() => {
+              setShowNavModal(false);
+              router.push("/");
+            }}
             className="flex items-center cursor-pointer"
           >
             <img src="/logo.png" alt="Logo" className="h-14 w-14 mr-2" />
@@ -178,18 +190,21 @@ export default function Navbar() {
               <Fragment>
                 <button
                   className={
-                    "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                    "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                   }
-                  onClick={() => router.push("/account")}
+                  onClick={() => {
+                    setShowNavModal(false);
+                    router.push("/account");
+                  }}
                 >
                   Compte
                 </button>
                 <button
                   className={
-                    "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                    "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                   }
                   onClick={() => {
-                    setShowCartModal(false);
+                    setShowNavModal(false);
                     router.push("/cart");
                   }}
                 >
@@ -201,18 +216,24 @@ export default function Navbar() {
               isAdminView ? (
                 <button
                   className={
-                    "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                    "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                   }
-                  onClick={() => router.push("/")}
+                  onClick={() => {
+                    setShowNavModal(false);
+                    router.push("/");
+                  }}
                 >
                   Client View
                 </button>
               ) : (
                 <button
                   className={
-                    "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                    "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                   }
-                  onClick={() => router.push("/admin-view")}
+                  onClick={() => {
+                    setShowNavModal(false);
+                    router.push("/admin-view");
+                  }}
                 >
                   Admin View
                 </button>
@@ -222,16 +243,19 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 className={
-                  "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                  "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                 }
               >
                 Déconnexion
               </button>
             ) : (
               <button
-                onClick={() => router.push("/login")}
+                onClick={() => {
+                  setShowNavModal(false);
+                  router.push("/login");
+                }}
                 className={
-                  "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-white"
+                  "mt-1.5 inline-block bg-button rounded-md md:px-5 md:py-3 px-2 md:text-sm text-xs font-medium upprcase tracking-wide text-white"
                 }
               >
                 Connexion

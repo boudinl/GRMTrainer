@@ -8,7 +8,7 @@ import { useContext, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
 
 export default function AdminView() {
-  const router = useRouter()
+  const router = useRouter();
   const {
     allOrdersForAllUsers,
     setAllOrdersForAllUsers,
@@ -28,11 +28,11 @@ export default function AdminView() {
     if (res.success) {
       setPageLevelLoader(false);
       setAllOrdersForAllUsers(res.data);
-    //   setAllOrdersForAllUsers(
-    //     res.data && res.data.length
-    //       ? res.data.filter((item) => item.user._id !== user._id)
-    //       : []
-    //   );
+      //   setAllOrdersForAllUsers(
+      //     res.data && res.data.length
+      //       ? res.data.filter((item) => item.user._id !== user._id)
+      //       : []
+      //   );
     } else {
       setPageLevelLoader(false);
     }
@@ -79,14 +79,14 @@ export default function AdminView() {
           <div className="px-4 py-6 sm:px-8 sm:py-10">
             <div className="flow-root">
               {allOrdersForAllUsers && allOrdersForAllUsers.length ? (
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-4 text-black">
                   {allOrdersForAllUsers.map((item) => (
                     <li
                       key={item._id}
                       className="bg-gray-200 shadow p-5 flex flex-col space-y-3 py-6 text-left"
                     >
                       <div className="flex">
-                        <h1 className="font-bold text-lg mb-3 flex-1" >
+                        <h1 className="font-bold text-lg mb-3 flex-1">
                           #commande: {item._id}
                         </h1>
                         <div className="flex flex-col gap-2">
@@ -121,7 +121,7 @@ export default function AdminView() {
                           <div key={index} className="shrink-0">
                             <img
                               alt="Order Item"
-                              className="h-24 w-24 max-w-full rounded-lg object-cover"
+                              className="h-24 w-24 max-w-full rounded-lg object-cover bg-black"
                               src={
                                 orderItem &&
                                 orderItem.product &&
@@ -132,16 +132,18 @@ export default function AdminView() {
                         ))}
                       </div>
                       <div className="flex gap-5">
-                        <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
+                        <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-button cursor-default text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                           {item.isProcessing
-                            ? "Order is Processing"
-                            : "Order is delivered"}
+                            ? "Commande en cours"
+                            : "Commande terminée"}
                         </button>
-                        <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
-                        onClick={()=>router.push(`/orders/${item._id}`)}>
+                        <button
+                          className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                          onClick={() => router.push(`/orders/${item._id}`)}
+                        >
                           Voir le détail
                         </button>
-                        
+
                         <button
                           onClick={() => handleUpdateOrderStatus(item)}
                           disabled={!item.isProcessing}
@@ -151,7 +153,7 @@ export default function AdminView() {
                           componentLevelLoader.loading &&
                           componentLevelLoader.id === item._id ? (
                             <ComponentLevelLoader
-                              text={"Updating Order Status"}
+                              text={"Cloturation de la commande"}
                               color={"#ffffff"}
                               loading={
                                 componentLevelLoader &&
@@ -159,14 +161,16 @@ export default function AdminView() {
                               }
                             />
                           ) : (
-                            "Update Order Status"
+                            "Terminer la commande"
                           )}
                         </button>
                       </div>
                     </li>
                   ))}
                 </ul>
-              ) : <div>Aucune commandes</div>}
+              ) : (
+                <div>Aucune commandes</div>
+              )}
             </div>
           </div>
         </div>

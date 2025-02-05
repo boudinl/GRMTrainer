@@ -45,8 +45,11 @@ export default function Checkout() {
     setParams(paramsObject); // Mettre à jour l'état avec les paramètres récupérés
   }, []);
 
-  const publishableKey = process.env.STRIPE_PUBLIC_KEY_TEST;
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST;
+  console.log("stripe key", publishableKey);
+  console.log("stripe key", process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST);
   const stripePromise = loadStripe(publishableKey);
+  console.log("stripe promise", stripePromise);
 
   const totalBeforeDiscount = cartItems.reduce(
     (total, item) => item.productID.price + total,
@@ -75,7 +78,7 @@ export default function Checkout() {
       setCheckoutFormData({
         ...checkoutFormData,
         orderPrice: totalPrice,
-        totalPrice: totalPrice + 4.19,
+        totalPrice: totalPrice,
       });
     }
   }, [user]);
@@ -83,7 +86,7 @@ export default function Checkout() {
     setCheckoutFormData({
       ...checkoutFormData,
       orderPrice: totalPrice,
-      totalPrice: totalPrice + 4.19,
+      totalPrice: totalPrice,
     });
   }, [discount]);
   useEffect(() => {
@@ -92,7 +95,7 @@ export default function Checkout() {
 
       if (
         isStripe &&
-        params.status === "success" &&
+        params?.status === "success" &&
         cartItems &&
         cartItems.length > 0
       ) {
@@ -110,7 +113,7 @@ export default function Checkout() {
             product: item.productID,
           })),
           paymentMethod: "Stripe",
-          deliveryFee: 4.19,
+          deliveryFee: 0,
           orderPrice: getCheckoutFormData.orderPrice,
           totalPrice: getCheckoutFormData.totalPrice,
           isPaid: true,
@@ -137,7 +140,7 @@ export default function Checkout() {
     }
 
     createFinalOrder();
-  }, [params.status, cartItems]);
+  }, [params?.status, cartItems]);
 
   function handleSelectedAddress(getAddress) {
     if (getAddress._id === selectedAddress) {
@@ -188,16 +191,7 @@ export default function Checkout() {
         quantity: 1, // Chaque produit est pris en quantité 1
       };
     });
-    createLineItems.push({
-      price_data: {
-        currency: "eur",
-        product_data: {
-          name: "Frais de livraison",
-        },
-        unit_amount: Math.round(4.19 * 100), // Prix après réduction (en centimes)
-      },
-      quantity: 1, // Chaque produit est pris en quantité 1
-    });
+
     console.log(createLineItems);
 
     const res = await callStripeSession(createLineItems);
@@ -274,28 +268,28 @@ export default function Checkout() {
   }
 
   return (
-    <div>
-      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 bg-white m-8 rounded-lg text-black">
+    <div className="">
+      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 bg-black m-8 rounded-lg ">
         <div className="px-4 pt-8">
           <p className="font-medium text-xl">Résumé de la commande</p>
-          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-5">
+          <div className="mt-8 space-y-3 rounded-lg border border-white  px-2 py-4 sm:px-5">
             {cartItems && cartItems.length ? (
               cartItems.map((item) => (
                 <div
-                  className="flex flex-col rounded-lg bg-white sm:flex-row"
+                  className="flex  rounded-lg bg-white flex-row text-black"
                   key={item._id}
                 >
                   <img
                     src={item && item.productID && item.productID.imageUrl}
                     alt="Cart Item"
-                    className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                    className="m-2 h-24 w-28 rounded-md border object-cover object-center bg-black"
                   />
                   <div className="flex w-full flex-col px-4 py-4">
                     <span className="font-bold">
                       {item && item.productID && item.productID.name}
                     </span>
                     <span className="font-semibold">
-                      {item && item.productID && item.productID.price}
+                      {item && item.productID && item.productID.price}€
                     </span>
                   </div>
                 </div>
@@ -305,10 +299,8 @@ export default function Checkout() {
             )}
           </div>
           {/* Champ de code promo */}
-          <div className="mt-6">
-            <label className="block text-sm font-medium text-gray-900">
-              Code Promo
-            </label>
+          <div className="my-6">
+            <label className="block text-lg font-bold ">Code Promo</label>
             <input
               type="text"
               value={promoCode}
@@ -323,16 +315,16 @@ export default function Checkout() {
               onClick={() => {
                 handleApplySaleCode();
               }}
-              className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+              className="mt-5 mr-5 inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
             >
               Appliquer
             </button>
           </div>
         </div>
-        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+        <div className="mt-10 border-l border-white px-4 pt-8 lg:mt-0">
           <p className="text-xl font-medium">Détails de la commande</p>
 
-          <p className="text-gray-400 font-bold">
+          <p className=" font-bold">
             Complétez votre commande en selectionnant une adresse
           </p>
           <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-6">
@@ -351,7 +343,7 @@ export default function Checkout() {
                   <p>Ville : {item.city}</p>
                   <p>Pays : {item.country}</p>
 
-                  <button className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
+                  <button className="mt-5 mr-5 inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                     {item._id === selectedAddress
                       ? "Adresse selectionnée"
                       : "Selectionner cette adresse"}
@@ -364,15 +356,15 @@ export default function Checkout() {
           </div>
           <button
             onClick={() => router.push("/account")}
-            className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            className="mt-5 mr-5 inline-block bg-button rounded-md text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
           >
             Ajouter une nouvelle adresse
           </button>
           <div className="mt-6 border-t border-b py-2">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Sous-total</p>
+              <p className="text-sm font-medium text-gray-400">Sous-total</p>
               <p
-                className={`text-lg font-bold text-gray-900 ${
+                className={`text-lg font-bold text-gray-400 ${
                   discount ? "line-through" : ""
                 }`}
               >
@@ -385,14 +377,14 @@ export default function Checkout() {
               ) : null}
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-sm font-medium text-gray-400">
                 Frais de livraison
               </p>
-              <p className="text-lg font-bold text-gray-900">Gratuit</p>
+              <p className="text-lg font-bold text-gray-400">Gratuit</p>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Total</p>
-              <p className={`text-lg font-bold text-gray-900 `}>
+              <p className="text-sm font-medium text-gray-400">Total</p>
+              <p className={`text-lg font-bold text-gray-400 `}>
                 {cartItems && cartItems.length
                   ? parseFloat(totalPrice.toFixed(2))
                   : "0"}
@@ -406,7 +398,7 @@ export default function Checkout() {
                   Object.keys(checkoutFormData.shippingAddress).length === 0
                 }
                 onClick={handleCheckout}
-                className="disabled:opacity-50 mt-5 mr-5 w-full  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                className="disabled:opacity-50 mt-5 mr-5 w-full rounded-md inline-block bg-button text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
               >
                 Procéder au paiement
               </button>

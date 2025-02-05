@@ -46,13 +46,13 @@ export default function Home() {
     getListOfProducts();
   }, []);
   return (
-    <div className=" py-8 px-16  sm:px-6 lg:px-16">
+    <div className=" py-8 md:px-16 m-4 sm:px-6 lg:px-16">
       <div className="max-w-screen  text-center ">
-        <section className="m-8 w-full  max-w-screen max-h-screen  justify-center items-center ">
+        <section className="m-4 w-full  max-w-screen   justify-center items-center ">
           <h1 className="text-4xl font-extrabold  mb-4 ">
             Découvre une nouvelle façon de t’entraîner !
           </h1>
-          <div className="w-full h-full max-w-[1400px] flex flex-col xl:flex-row   ">
+          <div className="w-full h-full max-w-full flex flex-col xl:flex-row   ">
             <div className=" w-full xl:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
               <video
                 className=" h-full object-contain rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 "
@@ -87,8 +87,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Les services */}
-        <section className="mb-16 mt-32 ">
+        {/* Les prestations */}
+        <section className="m-8 md:m-16  ">
           <h2
             className="text-4xl text-left font-bold text-stone-100 mb-4 cursor-pointer hover:text-bordeaux transition duration-300 ease-in-out"
             onClick={() => router.push(`/product/listing/all-products`)}
@@ -297,7 +297,7 @@ export default function Home() {
           </div>
         </section>
         <section className="py-4 flex flex-col md:flex-row items-center justify-between mb-4">
-          <div className="w-full text-left px-4">
+          <div className="w-full text-left px-4 ">
             <h3 className="text-4xl font-bold text-stone-100 mb-8">
               Mes produits
             </h3>
@@ -307,30 +307,33 @@ export default function Home() {
                 <p>
                   <i>Livraison gratuite sur tous les produits ! </i>
                 </p>
-                <div className="grid grid-cols-3 gap-4 justify-center items-center ">
-                  <button
-                    onClick={prevProduct}
-                    className="bg-stone-100 text-gray-900 p-2 text-2xl rounded-full justify-self-end z-10 border-2 border-or"
-                  >
-                    &lt;
-                  </button>
-                  <div className=" flex justify-center items-center ">
-                    <article
-                      className="bg-black border-or rounded-md relative flex flex-col overflow-hidden border-2 cursor-pointer "
-                      key={currentIndex}
+                <div className="relative flex justify-center items-center w-full">
+                  {/* Conteneur qui garde les éléments alignés et centrés */}
+                  <div className="flex items-center w-full sm:w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 relative">
+                    <button
+                      onClick={prevProduct}
+                      className="absolute left-0  bg-stone-100 text-gray-900 p-2 text-2xl rounded-full justify-self-end z-10 border-2 border-or"
                     >
-                      {/* Assurez-vous que l'élément actuel existe avant d'afficher le produit */}
-                      <ProductTile item={physicalProducts[currentIndex]} />
-                      <ProductButtons item={physicalProducts[currentIndex]} />
-                    </article>
-                  </div>
+                      &lt;
+                    </button>
+                    <div className=" flex justify-center items-center w-full ">
+                      <article
+                        className="bg-black border-or rounded-md  flex flex-col overflow-hidden border-2 cursor-pointer "
+                        key={currentIndex}
+                      >
+                        {/* Assurez-vous que l'élément actuel existe avant d'afficher le produit */}
+                        <ProductTile item={physicalProducts[currentIndex]} />
+                        <ProductButtons item={physicalProducts[currentIndex]} />
+                      </article>
+                    </div>
 
-                  <button
-                    onClick={nextProduct}
-                    className="bg-stone-100 text-gray-900 text-2xl p-2 rounded-full justify-self-start z-10 border-2 border-or"
-                  >
-                    &gt;
-                  </button>
+                    <button
+                      onClick={nextProduct}
+                      className="absolute right-0 bg-stone-100 text-gray-900 text-2xl p-2 rounded-full justify-self-start z-10 border-2 border-or"
+                    >
+                      &gt;
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (

@@ -16,7 +16,7 @@ export default function OrderDetails() {
   } = useContext(GlobalContext);
 
   const params = useParams();
-  const router = useRouter()
+  const router = useRouter();
 
   async function extractOrderDetails() {
     setPageLevelLoader(true);
@@ -51,7 +51,7 @@ export default function OrderDetails() {
   }
 
   return (
-    <div className="py-14 px-4 md:px-6">
+    <div className="py-14 px-4 md:px-6 bg-gray-200">
       <div className="flex justify-start items-start space-y-2 flex-col">
         <h1 className="text-3xl lg:text-4xl font-bold leading-7 lg:leading-9 text-gray-900">
           Commande #{orderDetails && orderDetails._id}
@@ -74,15 +74,15 @@ export default function OrderDetails() {
             orderDetails.orderItems &&
             orderDetails.orderItems.length
               ? orderDetails.orderItems.map((item) => (
-                  <div 
-                   onClick={() => router.push(`/product/${item.product._id}`)}
+                  <div
+                    onClick={() => router.push(`/product/${item.product._id}`)}
                     key={item._id}
                     className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full cursor-pointer"
                   >
                     <div className="pb-4 md:pb-8 w-full md:w-40">
                       <img
                         src={item && item.product && item.product.imageUrl}
-                        className="w-full hidden md:block"
+                        className="w-full hidden md:block bg-black"
                       />
                     </div>
                     <div className="border-b border-gray-300 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
@@ -94,7 +94,7 @@ export default function OrderDetails() {
                       </div>
                       <div className="w-full flex justify-between items-start space-x-8">
                         <h3 className="text-xl font-semibold leading-6 text-gray-900">
-                          ${item && item.product && item.product.price}
+                          {item && item.product && item.product.price}€
                         </h3>
                       </div>
                     </div>
@@ -109,19 +109,25 @@ export default function OrderDetails() {
               </h3>
               <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                 <div className="flex justify-between w-full">
-                  <p className="text-base leading-5 text-gray-800">Sous-total</p>
+                  <p className="text-base leading-5 text-gray-800">
+                    Sous-total
+                  </p>
                   <p className="text-base leading-5 text-gray-900">
                     ${orderDetails && orderDetails.totalPrice}
                   </p>
                 </div>
                 <div className="flex justify-between w-full">
-                  <p className="text-base leading-5 text-gray-800">Frais de livraison</p>
-                  <p className="text-base leading-5 text-gray-900">4.19</p>
+                  <p className="text-base leading-5 text-gray-800">
+                    Frais de livraison
+                  </p>
+                  <p className="text-base leading-5 text-gray-900">Gratuit</p>
                 </div>
                 <div className="flex justify-between w-full">
-                  <p className="text-base leading-5 text-gray-800">Total payé</p>
+                  <p className="text-base leading-5 text-gray-800">
+                    Total payé
+                  </p>
                   <p className="text-base leading-5 text-gray-900">
-                    ${orderDetails && orderDetails.totalPrice + 4.19}
+                    ${orderDetails && orderDetails.totalPrice}
                   </p>
                 </div>
               </div>
@@ -144,7 +150,7 @@ export default function OrderDetails() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
+          <div className="bg-gray-50 text-black flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
             <div className="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 md:space-y-0 xl:space-y-12 md:flex-row items-center md:items-start ">
               <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
                 <p>Adresse d'expédition</p>
@@ -156,12 +162,12 @@ export default function OrderDetails() {
                   Code postal :{" "}
                   {orderDetails && orderDetails.shippingAddress.postalCode}
                 </p>
-                <p>Ville :{orderDetails && orderDetails.shippingAddress.city}</p>
                 <p>
-                  Pays :{" "}
-                  {orderDetails && orderDetails.shippingAddress.country}
+                  Ville :{orderDetails && orderDetails.shippingAddress.city}
                 </p>
-              
+                <p>
+                  Pays : {orderDetails && orderDetails.shippingAddress.country}
+                </p>
               </div>
             </div>
           </div>

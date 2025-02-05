@@ -1,81 +1,93 @@
 export default function Presentation() {
   return (
-    <div className="container mx-auto p-6 ">
+    <div className="container mx-auto p-6 text-justify ">
+      <h1 className="text-4xl font-semibold text-or  mb-4">Qui-suis-je ? </h1>
       {/* Introduction avec la première photo */}
       <div className="flex flex-col md:flex-row items-center md:items-start mb-12 ">
         <div className="md:w-1/6 mb-6 md:mb-0">
           <img
-            src="/image1.jpg"
+            src="/image4.jpg"
             alt="Jérémy Triaud"
             className="rounded-full w-48 h-48 object-cover shadow-lg mx-auto md:mx-0"
           />
         </div>
         <div className="md:w-5/6 md:pl-6 mt-8 border-t  p-6 ml-2 rounded-lg shadow-xl">
-          <h1 className="text-3xl font-semibold  mb-4">
-            Je suis Jérémy Triaud
-          </h1>
           <p className="text-lg ">
-            Je suis un entrepreneur passionné par le sport et le bien-être. J'ai
-            décidé de mettre mon expertise et mon expérience au service des
-            autres en devenant coach sportif.
+            Je m’appelle Jérémy, je suis le Fondateur de GRM TRAINER,
+            responsable d’une salle de sport dans le Puy-de Dômes et coach
+            sportif.
+          </p>
+          <p className="text-lg">
+            Depuis toujours, le sport a occupé une place centrale dans ma vie.
+            Évoluer dans un environnement où l’activité physique était
+            omniprésente a façonné mon caractère et nourri une passion profonde.
+            Cette expérience m’a permis d’assimiler des valeurs essentielles
+            telles que le travail d’équipe, la discipline et la persévérance.
           </p>
         </div>
       </div>
       <div className="mb-12 border-t border-b p-6 rounded-lg shadow-xl ">
-        <h2 className="text-2xl font-semibold  mb-4">
-          Mon approche du coaching
-        </h2>
         <p className="text-lg  leading-relaxed">
-          En tant que coach, je suis convaincu qu'il n'y a pas de recette
-          unique. Chaque personne a des besoins et des objectifs différents.
-          C'est pourquoi j'adapte chaque programme en fonction de vos capacités
-          et de vos aspirations, pour vous offrir un suivi personnalisé et de
-          qualité.
+          Très jeune, le football est devenu bien plus qu’un simple jeu : il a
+          été mon école de vie. Il m’a appris la camaraderie, la gestion des
+          défis et le dépassement de soi. Ce sport a non seulement façonné ma
+          vision du monde, mais il a également été le socle de mon développement
+          personnel.
+        </p>
+        <p className="text-lg  leading-relaxed">
+          Curieux et passionné, j’ai exploré de nombreuses disciplines sportives
+          au fil des ans. Cette polyvalence m’a offert une compréhension globale
+          de l’entraînement et des bienfaits qu’apporte la diversité dans le
+          sport.
+        </p>
+        <p className="text-lg  leading-relaxed">
+          À l’âge de 17 ans, j’ai troqué le terrain pour le rôle d’entraîneur.
+          Ce passage précoce a marqué le début de ma vocation : accompagner et
+          inspirer. Guidé par cette passion, j’ai eu l’opportunité de former de
+          nombreux jeunes athlètes, renforçant ainsi ma conviction de poursuivre
+          cette voie en tant que métier.
         </p>
       </div>
       {/* Deuxième photo avec description */}
       <div className="flex flex-col md:flex-row items-center md:items-start mb-12">
         <div className="md:w-1/3 mb-6 md:mb-0">
           <img
-            src="/image4.jpg"
+            src="/image1.jpg"
             alt="Jérémy en entraînement"
             className="rounded-lg w-full h-80 object-cover shadow-lg mx-auto md:mx-0"
           />
         </div>
         {/* Histoire et parcours */}
         <div className="md:w-2/3 ml-4  p-4 rounded-lg shadow-xl">
-          <h2 className="text-2xl font-semibold  mb-4">Mon parcours sportif</h2>
           <p className="text-lg  leading-relaxed mb-4">
-            Depuis mon plus jeune âge, j'ai baigné dans un environnement
-            sportif, ce qui a façonné mon caractère et nourri une passion
-            indéfectible pour l'activité physique. Le football, ma vocation dès
-            l'enfance, m'a enseigné des leçons précieuses sur la camaraderie, la
-            gestion de l'adversité et le dépassement de soi.
+            Pour approfondir mes compétences, j’ai suivi diverses formations et
+            obtenu plusieurs diplômes. Ces apprentissages m’ont permis de
+            perfectionner mon approche et de m’adapter aux besoins variés de mes
+            adhérents.
           </p>
           <p className="text-lg  leading-relaxed mb-4">
-            En plus du football, j'ai exploré diverses disciplines sportives,
-            acquérant une vision globale et les bénéfices de la diversité dans
-            l'entraînement. À 17 ans, j'ai transitionné vers le rôle
-            d'entraîneur, guidant de nombreux jeunes athlètes.
-          </p>
-          <p className="text-lg  leading-relaxed">
-            J'ai décidé d'en faire mon métier avec détermination et passion.
-            J'ai obtenu divers diplômes pour être le plus diversifié possible,
-            enrichissant ainsi mes compétences.
+            Aujourd’hui, je me spécialise avant tout dans la perte de poids,
+            tout en proposant une approche complète pour des transformations
+            physiques. J’accompagne mes adhérents en allant bien au-delà des
+            simples entraînements et régimes. Je m’engage à comprendre en
+            profondeur leurs motivations, leurs habitudes de vie et la relation
+            qu’ils entretiennent avec leur corps. Mon objectif est de créer un
+            environnement dans lequel mes adhérents se sentent soutenus,
+            valorisés et capables d’atteindre leurs objectifs de manière
+            durable.
           </p>
         </div>
       </div>
 
       {/* Spécialisation avec effet de relief */}
       <div className="mb-12  p-6 rounded-lg shadow-xl border-t border-b">
-        <h2 className="text-2xl font-semibold  mb-4">Ma spécialisation</h2>
         <p className="text-lg  leading-relaxed mb-4">
-          Je me spécialise dans la transformation physique avec une approche
-          au-delà des simples entraînements et régimes. Je m'engage à comprendre
-          les motivations et les habitudes de vie de mes clients pour créer un
-          environnement de soutien. Le changement exige des sacrifices, et je
-          partage mes connaissances pour aider au mieux, car seule la
-          connaissance partagée a du sens.
+          Je suis convaincu que l’action est la clé pour transformer nos vies.
+          Le changement demande du courage, des sacrifices et parfois de
+          l’inconfort, mais il en vaut toujours la peine. Je partage avec vous
+          tout ce que j’ai appris, car je crois que la connaissance n’a de
+          valeur que lorsqu’elle est partagée. Ensemble, nous tracerons le
+          chemin vers vos réussites.
         </p>
       </div>
 

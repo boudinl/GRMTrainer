@@ -7,7 +7,7 @@ export default async function DisplaySaleCodes() {
     <div>
       {/* Bandeau des codes de réduction */}
       {saleCodes && saleCodes.data && saleCodes.data.length > 0 && (
-        <div className="bg-black text-white p-1 text-center fixed w-full z-10 ">
+        <div className="bg-black text-white mt-4  md:p-1 md:mt-0 text-center fixed w-full z-10 ">
           <ul className="list-none p-0">
             {saleCodes.data.map((code, index) => (
               <li className="my-2" key={index}>

@@ -50,7 +50,6 @@ export default function ProductButton({ item }) {
         router.push(`/product/${getItem._id}`);
       }, "1000");
     } else {
-      console.log("Ce nest pas un vetement");
       setComponentLevelLoader({ loading: true, id: getItem._id });
 
       const res = await addToCart({
@@ -69,7 +68,7 @@ export default function ProductButton({ item }) {
           position: "top-right",
         });
         setComponentLevelLoader({ loading: false, id: "" });
-        if ((res.message = "Vous n'êtes pas connecté")) {
+        if (res.message == "Vous n'êtes pas connecté") {
           setShowCartModal(false);
           setTimeout(() => {
             router.push("/login");

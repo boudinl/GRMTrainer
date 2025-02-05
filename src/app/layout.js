@@ -13,11 +13,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className="font-bookAntiqua text-base custom-background shadow-xl text-white">
         <GlobalState>
           <Navbar />
-          <main className="  mt-[90px]">{children}</main>
+          <main className=" mt-[90px] ">{children}</main>
           <Footer />
         </GlobalState>
       </body>
