@@ -52,7 +52,12 @@ export default function Login() {
       setIsAuthUser(true);
       setUser(res?.finalData?.user);
       setFormData(initialFormData);
-      Cookies.set("token", res?.finalData?.token);
+
+      Cookies.set("token", res?.finalData?.token, {
+        secure: process.env.NODE_ENV === "production", // "production" pour activer le mode sécurisé en production
+        sameSite: "Strict", // Peut aussi être "Lax" ou "None" selon ton besoin
+        expires: 1, // Expiration de 1 jour par exemple
+      });
       localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
       setComponentLevelLoader({ loading: false, id: "" });
     } else {
