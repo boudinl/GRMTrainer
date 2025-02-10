@@ -1,6 +1,5 @@
 "use client";
 
-import CommonListing from "@/components/CommonListing";
 import ProductTile from "@/components/CommonListing/ProductTile";
 import ProductButtons from "@/components/CommonListing/ProductButtons";
 import { productByProductType } from "@/services/product";
@@ -48,12 +47,12 @@ export default function Home() {
   return (
     <div className=" py-8 md:px-16 m-4 sm:px-6 lg:px-16">
       <div className="max-w-screen  text-center ">
-        <section className="m-4 w-full  max-w-screen   justify-center items-center ">
-          <h1 className="text-4xl font-extrabold  mb-4 ">
-            Découvre une nouvelle façon de t’entraîner !
-          </h1>
+        <section className=" m-4 w-full  max-w-screen   justify-center items-center ">
           <div className="w-full h-full max-w-full flex flex-col xl:flex-row   ">
-            <div className=" w-full xl:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
+            <div className="relative w-full xl:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
+              <h1 className="absolute text-6xl font-extrabold text-gray-100 mb-4 ">
+                Découvre une nouvelle façon de t’entraîner !
+              </h1>
               <video
                 className=" h-full object-contain rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 "
                 autoPlay
@@ -66,22 +65,16 @@ export default function Home() {
 
             <div className="flex xl:w-1/2  xl:p-8">
               <p>
-                Ces offres sont minutieusement conçues pour répondre à vos
-                besoins, que vous soyez débutant ou expert, et quels que soient
-                vos objectifs. Spécialisé dans la perte de poids, j’accompagne
-                également celles et ceux qui souhaitent développer leur masse
-                musculaire, augmenter leur force, améliorer leur endurance ou
-                exceller dans une discipline spécifique. La culture physique,
-                lorsqu’elle est pratiquée de manière structurée et encadrée par
-                un professionnel, peut non seulement offrir des résultats
-                durables mais aussi de profondes satisfactions personnelles. Je
-                vous propose une organisation optimisée de votre temps
-                d’entraînement, avec des programmes parfaitement adaptés à vos
-                besoins. Cette approche personnalisée vous permettra d’éviter de
-                gaspiller votre énergie sur des exercices inefficaces,
-                préservant ainsi votre motivation et accélérant vos progrès.
-                Ensemble, nous maximiserons votre efficacité pour atteindre vos
-                objectifs de manière rapide, durable et en toute sécurité.
+                Ces offres sont conçues pour répondre à vos besoins, que vous
+                soyez débutant ou expert. Spécialisé dans la perte de poids,
+                j’accompagne également ceux qui souhaitent développer leur masse
+                musculaire, améliorer leur force, endurance ou exceller dans une
+                discipline. La culture physique, encadrée par un professionnel,
+                offre des résultats durables et des satisfactions personnelles.
+                Je vous propose un programme optimisé, évitant les exercices
+                inefficaces, préservant votre motivation et accélérant vos
+                progrès pour atteindre vos objectifs rapidement et en toute
+                sécurité.
               </p>
             </div>
           </div>

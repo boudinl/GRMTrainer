@@ -13,7 +13,7 @@ export default function TileComponent({ data, selected = [], onClick }) {
               selected.length &&
               selected.map((item) => item.id).indexOf(dataItem.id) !== -1
                 ? "text-white bg-button "
-                : "bg-black"
+                : "text-white bg-black"
             }`}
           >
             {dataItem.label}

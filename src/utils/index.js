@@ -211,6 +211,10 @@ export const adminAddProductformControls = [
 
 export const AvailableSizes = [
   {
+    id: "xs",
+    label: "XS",
+  },
+  {
     id: "s",
     label: "S",
   },
@@ -225,6 +229,50 @@ export const AvailableSizes = [
   {
     id: "xl",
     label: "XL",
+  },
+  {
+    id: "xxl",
+    label: "XXL",
+  },
+  {
+    id: "xxxl",
+    label: "XXXL",
+  },
+  {
+    id: "34",
+    label: "34",
+  },
+  {
+    id: "36",
+    label: "36",
+  },
+  {
+    id: "38",
+    label: "38",
+  },
+  {
+    id: "40",
+    label: "40",
+  },
+  {
+    id: "42",
+    label: "42",
+  },
+  {
+    id: "44",
+    label: "44",
+  },
+  {
+    id: "46",
+    label: "46",
+  },
+  {
+    id: "48",
+    label: "48",
+  },
+  {
+    id: "50",
+    label: "50",
   },
 ];
 
