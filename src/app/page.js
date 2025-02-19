@@ -147,7 +147,7 @@ export default function Home() {
             ref={textRef}
             className={`w-full relative md:w-full flex flex-wrap  justify-between border-4 border-bordeaux rounded-lg overflow-hidden max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto
               ${hovered === 2 ? "max-h-[400px] md:max-h-max" : ""} ${
-              hovered === 3 ? "max-h-[650px] md:max-h-max" : ""
+              hovered === 3 ? "max-h-[650px] md:max-h-max" : "max-h-[500px] "
             } `}
             onMouseLeave={handleMouseLeave}
           >
