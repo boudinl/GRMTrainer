@@ -6,6 +6,9 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+.text-outline {
+  -webkit-text-stroke: 1.5px black;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {

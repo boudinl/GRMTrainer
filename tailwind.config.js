@@ -5,6 +5,13 @@ export const content = [
   "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 ];
+
+export const safelist = [
+  "max-h-[400px]",
+  "max-h-[480px]",
+  "max-h-[650px]",
+  "md:max-h-max",
+];
 export const theme = {
   extend: {
     colors: {
