@@ -180,8 +180,12 @@ export default function Navbar() {
             }}
             className="flex items-center cursor-pointer"
           >
-            <img src="/logo.png" alt="Logo" className="h-16 w-18 mr-2" />
-            <span className="self-center text-2xl text-or font-semibold whitespace-nowrap">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="sm:h-16 sm:w-18 h-14 w-17 mr-2"
+            />
+            <span className="self-center sm:text-2xl text-lg text-or font-semibold whitespace-nowrap">
               GRM TRAINER
             </span>
           </div>

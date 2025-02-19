@@ -59,6 +59,7 @@ const initialFormData = {
   description: "",
   category: "mixte",
   sizes: [], // pour les vêtements, tailles possibles
+  content: [],
   deliveryInfo: "",
   onSale: "no",
   imageUrl: "",
@@ -72,6 +73,7 @@ const initialFormData = {
 
 export default function AdminAddNewProduct() {
   const [formData, setFormData] = useState(initialFormData);
+  const [newContent, setNewContent] = useState("");
   const {
     componentLevelLoader,
     setComponentLevelLoader,
@@ -291,6 +293,70 @@ export default function AdminAddNewProduct() {
               />
             ) : null
           )}
+          <div className="flex flex-col gap-2">
+            <label>Contenu du produit (optionel ) </label>
+
+            {/* Champ pour ajouter une nouvelle phrase */}
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newContent}
+                onChange={(e) => setNewContent(e.target.value)}
+                placeholder="Ajouter une phrase"
+                className="border p-2 rounded-lg w-full"
+              />
+              <button
+                onClick={() => {
+                  if (newContent.trim() !== "") {
+                    setFormData({
+                      ...formData,
+                      content: [...formData.content, newContent],
+                    });
+                    setNewContent(""); // Réinitialiser après ajout
+                  }
+                }}
+                className="bg-blue-500 text-white p-2 rounded-lg"
+              >
+                Ajouter
+              </button>
+            </div>
+
+            {/* Liste des phrases avec modification et suppression */}
+            <div className="flex flex-col gap-2 mt-2">
+              {formData.content.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 bg-gray-100 p-2 rounded-lg"
+                >
+                  <input
+                    type="text"
+                    value={item}
+                    onChange={(e) => {
+                      const updatedContent = [...formData.content];
+                      updatedContent[index] = e.target.value;
+                      setFormData({
+                        ...formData,
+                        content: updatedContent,
+                      });
+                    }}
+                    className="border p-2 rounded-lg w-full"
+                  />
+                  <button
+                    onClick={() => {
+                      setFormData({
+                        ...formData,
+                        content: formData.content.filter((_, i) => i !== index),
+                      });
+                    }}
+                    className="bg-red-500 text-white p-1 rounded-lg"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <button
             onClick={handleAddProduct}
             className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase tracking-wide "

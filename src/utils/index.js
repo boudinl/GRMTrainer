@@ -123,6 +123,7 @@ export const adminAddProductformControls = [
     label: "Description",
     componentType: "input",
   },
+
   {
     id: "category",
     type: "",
@@ -189,6 +190,7 @@ export const adminAddProductformControls = [
     componentType: "tile", // On peut utiliser un TileComponent pour afficher les tailles
     visibleFor: ["product"], // Ce champ est visible seulement pour les vêtements
   },
+
   // Champ conditionnel pour la durée du coaching
   {
     id: "duration",
@@ -203,7 +205,7 @@ export const adminAddProductformControls = [
     id: "ebookFile",
     type: "text",
     placeholder: "Enter Ebook URL",
-    label: "Ebook URL",
+    label: "Nombre de pages",
     componentType: "input",
     visibleFor: ["ebook"], // Ce champ est visible seulement pour les ebooks
   },

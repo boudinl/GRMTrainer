@@ -14,6 +14,13 @@ export default function CommonDetails({ item }) {
   const router = useRouter();
   // State pour suivre l'image actuellement affichée en grand
   const [selectedImage, setSelectedImage] = useState(item.imageUrl);
+  const [activeTab, setActiveTab] = useState(
+    item.description?.trim()
+      ? "description"
+      : item.content?.length > 0
+      ? "content"
+      : null
+  );
 
   // Fonction pour changer l'image affichée en grand lors du clic sur une petite vignette
   const handleThumbnailClick = (imageUrl) => {
@@ -100,7 +107,7 @@ export default function CommonDetails({ item }) {
     }
   }
   const renderAdditionalInfo = () => {
-    if (item.productType === "coaching") {
+    if (item.productType === "coaching" && item.duration !== 0) {
       return (
         <div>
           <h3 className="text-xl font-semibold mt-4">
@@ -136,7 +143,7 @@ export default function CommonDetails({ item }) {
     if (item.productType === "ebook") {
       return (
         <div>
-          <h3 className="text-xl font-semibold mt-4">Format du livre :</h3>
+          <h3 className="text-xl font-semibold mt-4">Nombre de pages :</h3>
           <p>{item.format || "Non spécifié"}</p>
         </div>
       );
@@ -239,26 +246,64 @@ export default function CommonDetails({ item }) {
                 )}
               </button>
             </div>
-            <ul className="mt-8 space-y-2">
-              <li className="flex items-center text-left text-xl font-medium text-white">
-                Livraison : {item && item.deliveryInfo}
-              </li>
-            </ul>
+            {item.productType === "product" && (
+              <ul className="mt-8 space-y-2">
+                <li className="flex items-center text-left text-xl font-medium text-white">
+                  Livraison : {item && item.deliveryInfo}
+                </li>
+              </ul>
+            )}
             <div className="lg:col-span-3">
               <div className="border-b border-gray-400">
                 <nav className="flex gap-4">
-                  <a
-                    href="#"
-                    className="border-b-2 border-gray-900 py-4 text-xl font-medium text-white mt-8"
-                  >
-                    Description
-                  </a>
+                  {/* Afficher l'onglet "Description" uniquement si elle n'est pas vide */}
+                  {item.description && item.description.trim() !== "" && (
+                    <button
+                      onClick={() => setActiveTab("description")}
+                      className={`py-4 text-xl font-medium mt-8 ${
+                        activeTab === "description"
+                          ? "border-b-2 border-gray-900 text-white"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      Description
+                    </button>
+                  )}
+
+                  {/* Afficher l'onglet "Contenu" uniquement si le tableau n'est pas vide */}
+                  {item.content && item.content.length > 0 && (
+                    <button
+                      onClick={() => setActiveTab("content")}
+                      className={`py-4 text-xl font-medium mt-8 ${
+                        activeTab === "content"
+                          ? "border-b-2 border-gray-900 text-white"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      Contenu
+                    </button>
+                  )}
                 </nav>
               </div>
-              <div className="mt-4 flow-root sm:mt-12">
-                {item && item.description}
+
+              {/* Afficher la section en fonction de l'onglet actif */}
+              <div className="mt-4 flow-root sm:mt-8">
+                {activeTab === "description" && item.description && (
+                  <p>{item.description}</p>
+                )}
+
+                {activeTab === "content" &&
+                  item.content &&
+                  item.content.length > 0 && (
+                    <ul className="list-disc pl-5">
+                      {item.content.map((phrase, index) => (
+                        <li key={index}>{phrase}</li>
+                      ))}
+                    </ul>
+                  )}
               </div>
             </div>
+
             {/* Affichage des informations supplémentaires selon le type */}
             {renderAdditionalInfo()}
           </div>

@@ -4,22 +4,35 @@ import ProductTile from "@/components/CommonListing/ProductTile";
 import ProductButtons from "@/components/CommonListing/ProductButtons";
 import { productByProductType } from "@/services/product";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Notification from "@/components/Notification";
+import { TiArrowDownThick } from "react-icons/ti";
 
 export default function Home() {
   const [hovered, setHovered] = useState(null); // Etat pour savoir quelle image est survolée
 
+  const textRef = useRef(null);
+
   const handleMouseEnter = (index) => {
-    setHovered(index); // Met à jour l'état lorsque l'on survole une image
+    if (window.innerWidth >= 768) {
+      setHovered(index);
+    }
+    // Met à jour l'état lorsque l'on survole une image
+  };
+  const handleClick = (index) => {
+    setHovered((prev) => (prev === index ? null : index));
   };
 
   const handleMouseLeave = () => {
-    setHovered(null); // Réinitialise l'état quand le survol est terminé
+    if (window.innerWidth >= 768) {
+      setHovered(null);
+    }
+    // Réinitialise l'état quand le survol est terminé
   };
   const router = useRouter();
 
   const [physicalProducts, setPhysicalProducts] = useState([]);
+  const [coachings, setCoachings] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const nextProduct = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % physicalProducts.length);
@@ -32,6 +45,15 @@ export default function Home() {
         (prevIndex - 1 + physicalProducts.length) % physicalProducts.length
     );
   };
+  function goToSpecigicCoaching(coachingName) {
+    const coaching = coachings.find((c) => c.name === coachingName);
+
+    if (coaching) {
+      router.push(`/product/${coaching._id}`);
+    } else {
+      console.error("Coaching not found");
+    }
+  }
   async function getListOfProducts() {
     const res = await productByProductType("product");
 
@@ -39,44 +61,76 @@ export default function Home() {
       setPhysicalProducts(res.data);
     }
     console.log(physicalProducts);
+    const resCoach = await productByProductType("coaching");
+
+    if (resCoach.success) {
+      setCoachings(resCoach.data);
+    }
+    console.log(coachings);
   }
 
   useEffect(() => {
     getListOfProducts();
   }, []);
+  useEffect(() => {
+    // Vérifier si le texte est monté et si l'élément est visible avant de faire défiler
+    if (window.innerWidth < 768 && hovered !== null) {
+      console.log("Fenetre inférieur");
+      console.log(textRef.current);
+      if (textRef.current) {
+        textRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center", // Centrer l'élément dans la fenêtre
+        });
+      }
+    }
+  }, [hovered]);
+  // useEffect(() => {
+  //   if (hovered !== null && textRefs[hovered]?.current) {
+  //     textRefs[hovered].current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //     });
+  //   }
+  // }, [hovered]);
   return (
-    <div className=" py-8 md:px-16 m-4 sm:px-6 lg:px-16">
+    <div className=" xl:py-2 md:px-16 lg:px-16">
       <div className="max-w-screen  text-center ">
-        <section className=" m-4 w-full  max-w-screen   justify-center items-center ">
-          <div className="w-full h-full max-w-full flex flex-col xl:flex-row   ">
-            <div className="relative w-full xl:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
-              <h1 className="absolute text-6xl font-extrabold text-gray-100 mb-4 ">
-                Découvre une nouvelle façon de t’entraîner !
-              </h1>
-              <video
-                className=" h-full object-contain rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 "
-                autoPlay
-                loop
-                muted
-                playsInline
-                src="/accueilVideo.mov"
-              />
-            </div>
+        <section className=" w-full  max-w-screen  flex flex-col items-center ">
+          <div className="relative w-full max-w-screen-lg flex justify-center items-center mb-10 ">
+            <h1
+              className="absolute sm:text-6xl text-4xl font-extrabold text-gray-100 mb-4 bottom-[-15%] sm:bottom-[-10%] transform  flex items-center"
+              style={{ WebkitTextStroke: "1.5px black" }}
+            >
+              Découvre une nouvelle façon de t’entraîner !
+            </h1>
 
-            <div className="flex xl:w-1/2  xl:p-8">
-              <p>
-                Ces offres sont conçues pour répondre à vos besoins, que vous
-                soyez débutant ou expert. Spécialisé dans la perte de poids,
-                j’accompagne également ceux qui souhaitent développer leur masse
-                musculaire, améliorer leur force, endurance ou exceller dans une
-                discipline. La culture physique, encadrée par un professionnel,
-                offre des résultats durables et des satisfactions personnelles.
-                Je vous propose un programme optimisé, évitant les exercices
-                inefficaces, préservant votre motivation et accélérant vos
-                progrès pour atteindre vos objectifs rapidement et en toute
-                sécurité.
-              </p>
-            </div>
+            <video
+              className="w-full  max-h-[80vh] h-full object-contain aspect-video rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 mx-auto"
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="/accueilVideo.mov"
+            />
+          </div>
+          <div className="flex space-x-4 ">
+            <TiArrowDownThick className="text-or text-4xl animate-bounce " />
+            <TiArrowDownThick className="text-or text-4xl animate-bounce " />
+          </div>
+
+          <div className="flex xl:p-8 mt-4">
+            <p className="text-lg md:text-2xl">
+              Ces offres sont conçues pour répondre à vos besoins, que vous
+              soyez débutant ou expert. Spécialisé dans la perte de poids,
+              j’accompagne également ceux qui souhaitent développer leur masse
+              musculaire, améliorer leur force, endurance ou exceller dans une
+              discipline. La culture physique, encadrée par un professionnel,
+              offre des résultats durables et des satisfactions personnelles. Je
+              vous propose un programme optimisé, évitant les exercices
+              inefficaces, préservant votre motivation et accélérant vos progrès
+              pour atteindre vos objectifs rapidement et en toute sécurité.
+            </p>
           </div>
         </section>
 
@@ -90,7 +144,11 @@ export default function Home() {
           </h2>
 
           <div
-            className="w-full relative md:w-full flex flex-wrap  justify-between border-4 border-bordeaux rounded-lg overflow-hidden max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto "
+            ref={textRef}
+            className={`w-full relative md:w-full flex flex-wrap  justify-between border-4 border-bordeaux rounded-lg overflow-hidden max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto
+              ${hovered === 2 ? "max-h-[400px] md:max-h-max" : ""} ${
+              hovered === 3 ? "max-h-[650px] md:max-h-max" : ""
+            } `}
             onMouseLeave={handleMouseLeave}
           >
             <div
@@ -104,7 +162,7 @@ export default function Home() {
                   : "opacity-0 pointer-events-none"
               }`}
               onMouseEnter={() => handleMouseEnter(1)}
-              onClick={() => handleMouseEnter(1)}
+              onClick={() => handleClick(1)}
             >
               <img
                 src="/MesSuivis.jpg" // Remplacez par le chemin réel de l'image
@@ -124,7 +182,7 @@ export default function Home() {
                   : "opacity-0 pointer-events-none"
               }`}
               onMouseEnter={() => handleMouseEnter(2)}
-              onClick={() => handleMouseEnter(2)}
+              onClick={() => handleClick(2)}
             >
               <img
                 src="MethodeGrem.jpg" // Remplacez par le chemin réel de l'image
@@ -144,7 +202,7 @@ export default function Home() {
                   : "opacity-0 pointer-events-none"
               }`}
               onMouseEnter={() => handleMouseEnter(3)}
-              onClick={() => handleMouseEnter(3)}
+              onClick={() => handleClick(3)}
             >
               <img
                 src="MesProgrammes.jpg" // Remplacez par le chemin réel de l'image
@@ -202,87 +260,68 @@ export default function Home() {
               </div>
             )}
             {hovered === 2 && (
-              <div className="absolute inset-0 flex left-0 top-1/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10">
+              <div
+                className={`absolute inset-0 flex left-0 top-2/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10
+              `}
+              >
                 <div className="w-full h-full flex items-center justify-center space-x-8 px-4 text-center">
                   <div className="text-white w-full max-w-4xl md:max-h-[400px] overflow-y-auto">
-                    <h1 className="text-or text-4xl font-bold mt-4">
+                    <h1 className="text-or text-2xl md:text-4xl font-bold mt-6">
                       La méthode GRM
                     </h1>
                     <p className="text-lg text-white mb-4"></p>
-                    <ul className="list-disc list-inside marker:text-white text-white text-left lg:pl-32">
-                      <li>1 accès à l’application</li>
-                      <li> 1 programme perte de poids 12 SEMAINES</li>
-                      <li>1 plan alimentaire</li>
-                      <li>1 BOOSTBOX</li>
-                      <li>Des séances et exercices vidéo</li>
-                      <li> Des documents explicatifs</li>
-                      <li>Suivi de la progression</li>
-                      <li>Echanges quotidien via WhatsApp</li>
-                      <li>150 €</li>
-                    </ul>
+
                     <button
                       className={
-                        "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-or mb-4"
+                        "mt-1.5 inline-block bg-button rounded-md px-5 md:py-3 py-2 text-sm font-medium upprcase tracking-wide text-or mb-4"
                       }
-                      onClick={() => router.push("/product/listing/coaching")}
+                      onClick={() => goToSpecigicCoaching("La méthode GRM")}
                     >
-                      Accèder à la boutique
+                      En savoir plus <span aria-hidden="true">&rarr;</span>
                     </button>
                   </div>
                 </div>
               </div>
             )}
             {hovered === 3 && (
-              <div className="absolute inset-0 flex left-0 top-1/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10">
+              <div className="absolute inset-0 flex left-0 top-2/3 md:top-0 md:left-1/3 md:w-2/3 items-center justify-center bg-black z-10">
                 <div className="w-full h-full flex items-center justify-center space-x-8 px-4 text-center">
                   <div className="text-white w-full max-w-4xl md:max-h-[400px] overflow-y-auto">
-                    <h1 className="text-or text-4xl font-bold mt-4">
+                    <h1 className="text-or text-2xl md:text-4xl font-bold mt-4 mb-2">
                       Mes programmes
                     </h1>
                     <div className="flex flex-col md:flex-row md:space-x-8">
-                      <div className="flex-1">
-                        <p className="text-lg m-2">
+                      <div className="flex-1 flex flex-col justify-between items-center text-center">
+                        <p className="text-sm md:text-lg m-1 md:m-2">
                           PROGRAMMES 8 SEMAINES PERSONNALISÉ
                         </p>
-                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
-                          <li>1 accès à l’application</li>
-                          <li> 1 programme 8 SEMAINES personnalisé </li>
 
-                          <li>Des séances et exercices vidéo</li>
-                          <li> Des documents explicatifs</li>
-                          <li>Suivi de la progression</li>
-                          <li>Echanges hebdomadaire via WhatsApp</li>
-                          <li>50€ </li>
-                        </ul>
+                        <button
+                          className={
+                            "mt-1.5 inline-block bg-button rounded-md px-5 md:py-3 py-2 text-sm font-medium upprcase tracking-wide text-or md:mb-4 mb-2"
+                          }
+                          onClick={() => goToSpecigicCoaching("Programme type")}
+                        >
+                          En savoir plus <span aria-hidden="true">&rarr;</span>
+                        </button>
                       </div>
-                      <div className="flex-1">
-                        <p className="text-lg m-2">PROGRAMMES 8 SEMAINES</p>
-                        <ul className="list-disc list-inside marker:text-white text-white text-left pl-6">
-                          <li>1 accès à l’application</li>
-                          <li> 1 programme 8 SEMAINES type </li>
-                          <li>Des séances et exercices vidéo</li>
-                          <li> Des documents explicatifs</li>
-                          <li>Suivi de la progression</li>
-                          <li>Echanges hebdomadaire via WhatsApp</li>
-                          <li>30€ </li>
-                        </ul>
+                      <div className="flex-1 flex flex-col justify-between items-center text-center">
+                        <p className="text-sm md:text-lg m-1 md:m-2">
+                          PROGRAMMES 8 SEMAINES
+                        </p>
+
+                        <button
+                          className={
+                            "mt-1.5 inline-block bg-button rounded-md px-5 md:py-3 py-2 text-sm font-medium upprcase tracking-wide text-or mb-4"
+                          }
+                          onClick={() =>
+                            goToSpecigicCoaching("Programme personnalisé")
+                          }
+                        >
+                          En savoir plus <span aria-hidden="true">&rarr;</span>
+                        </button>
                       </div>
                     </div>
-                    {/* <ul className="list-disc text-lg text-white ml-6">
-                      <li>EBook prise de masse musculaire : 59€</li>
-                      <li>EBook perte de poids : 59€</li>
-                      <li>EBook Force : 59€</li>
-                      <li>EBook Hybride (force et endurance) : 59€</li>
-                      <li>EBook Endurance : 59€</li>
-                    </ul> */}
-                    <button
-                      className={
-                        "mt-1.5 inline-block bg-button rounded-md px-5 py-3 text-sm font-medium upprcase tracking-wide text-or mb-4"
-                      }
-                      onClick={() => router.push("/product/listing/ebook")}
-                    >
-                      Accèder à la boutique
-                    </button>
                   </div>
                 </div>
               </div>
