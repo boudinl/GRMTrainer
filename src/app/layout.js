@@ -8,7 +8,33 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "GRM TRAINER",
-  description: "Web application",
+  description:
+    "Coaching sportif à Clermont-Ferrand et en ligne. Programmes personnalisés, entraînements en présentiel ou à distance, vente de t-shirts et box fitness.",
+  keywords: [
+    "coach sportif Clermont-Ferrand",
+    "coaching en ligne",
+    "programme musculation",
+    "entraînement personnalisé",
+    "coach personnel",
+    "vente t-shirt fitness",
+    "box fitness",
+  ],
+  openGraph: {
+    title: "GRM TRAINER",
+    description:
+      "Découvrez mes programmes d'entraînement personnalisés, en ligne ou en présentiel à Clermont-Ferrand. Vente de produits sportifs (t-shirts, box fitness).",
+    url: "https://grmtrainer.vercel.app/",
+    siteName: "GRM TRAINER",
+    images: [
+      {
+        url: "https://grmtrainer.vercel.app/images/favicon.ico",
+        width: 1200,
+        height: 630,
+        alt: "Coaching sportif",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
