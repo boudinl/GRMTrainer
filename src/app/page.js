@@ -9,7 +9,7 @@ import Notification from "@/components/Notification";
 import { TiArrowDownThick } from "react-icons/ti";
 
 export default function Home() {
-  const [hovered, setHovered] = useState(1); // Etat pour savoir quelle image est survolée
+  const [hovered, setHovered] = useState(null); // Etat pour savoir quelle image est survolée
 
   const textRef = useRef(null);
 
@@ -160,7 +160,7 @@ export default function Home() {
               ${hovered === 2 ? "max-h-[400px] " : ""} ${
               hovered === 3 ? "max-h-[650px] " : ""
             } `}
-            //onMouseLeave={handleMouseLeave}
+            onMouseLeave={handleMouseLeave}
           >
             <div
               className={`flex flex-col items-center w-full md:w-1/3 relative transition-all duration-300  ${getTransformClass(

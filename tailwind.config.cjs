@@ -21,7 +21,7 @@ module.exports = {
         bookAntiqua: ['"Book Antiqua"', "serif"],
       },
       fontSize: {
-        base: "1.25rem",
+        base: "1rem",
       },
     },
   },
