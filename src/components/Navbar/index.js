@@ -183,7 +183,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Logo"
-              className="sm:h-16 sm:w-18 h-14 w-17 mr-2"
+              className="sm:h-16 sm:w-18 h-13 w-16 mr-1"
             />
             <span className="self-center sm:text-2xl text-lg text-or font-semibold whitespace-nowrap">
               GRM TRAINER
