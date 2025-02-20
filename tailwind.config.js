@@ -27,7 +27,7 @@ export const theme = {
       bookAntiqua: ['"Book Antiqua"', "serif"], // Ajoute Book Antiqua comme police
     },
     fontSize: {
-      base: "1.125rem", // Taille de texte par défaut (augmentée de 1rem à 1.125rem)
+      base: "1rem", // Taille de texte par défaut (augmentée de 1rem à 1.125rem)
     },
   },
 };
