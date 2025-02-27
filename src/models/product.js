@@ -23,6 +23,7 @@ const ProductSchema = new mongoose.Schema(
     priceDrop: Number,
     imageUrl: String,
     optionalImagesUrl: Array,
+    devis: String,
     duration: {
       // Durée spécifique pour le coaching
       type: Number,
