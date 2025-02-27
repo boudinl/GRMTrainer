@@ -108,6 +108,15 @@ export default function ProductButton({ item }) {
         )}
       </button>
     </>
+  ) : item.devis === "yes" ? (
+    <a
+      href={`mailto:trainer.grm@gmail.com?subject=Demande%20de%20devis&body=Bonjour,%20je%20souhaite%20demander%20un%20devis%20pour%20${encodeURIComponent(
+        item.name
+      )}.`}
+      className="mt-1.5 flex w-full justify-center bg-button px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+    >
+      Me contacter
+    </a>
   ) : (
     <button
       onClick={() => handleAddToCart(item)}
@@ -117,8 +126,8 @@ export default function ProductButton({ item }) {
       componentLevelLoader.loading &&
       componentLevelLoader.id === item._id ? (
         <ComponentLevelLoader
-          text={"Ajout au panier"}
-          color={"#ffffff"}
+          text="Ajout au panier"
+          color="#ffffff"
           loading={componentLevelLoader && componentLevelLoader.loading}
         />
       ) : (

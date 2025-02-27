@@ -64,6 +64,7 @@ const initialFormData = {
   onSale: "no",
   imageUrl: "",
   optionalImagesUrl: [],
+  devis: "no",
   priceDrop: 0,
   productType: "product", // Nouveau champ pour le type de produit
   // Si le type est "coaching" ou "ebook", d'autres champs peuvent être initialisés par défaut.

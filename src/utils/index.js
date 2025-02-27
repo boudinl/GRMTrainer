@@ -158,6 +158,24 @@ export const adminAddProductformControls = [
     componentType: "input",
   },
   {
+    id: "devis",
+    type: "",
+    placeholder: "",
+    label: "Sur devis ?",
+    componentType: "select",
+    options: [
+      {
+        id: "yes",
+        label: "Oui",
+      },
+      {
+        id: "no",
+        label: "Non",
+      },
+    ],
+    visibleFor: ["coaching"],
+  },
+  {
     id: "onSale",
     type: "",
     placeholder: "",
@@ -365,5 +383,53 @@ export const addNewOpinionForm = [
     placeholder: "Entre le nom de la personne",
     label: "Signature",
     componentType: "input",
+  },
+];
+
+export const productsPointsDetails = [
+  {
+    title: "X séances en présentiel",
+    description:
+      "Un nombre défini de séances d’entraînement directement encadrées par le coach. Ces séances se déroulent en face à face et permettent un suivi optimal, des corrections techniques et une motivation en direct.",
+  },
+  {
+    title: "1 accès à l’application",
+    description:
+      "Une plateforme numérique dédiée où l’adhérent peut accéder à ses programmes, suivre ses progrès et bénéficier de ressources supplémentaires.",
+  },
+  {
+    title: "1 programme personnalisé",
+    description:
+      "Un programme d’entraînement sur mesure, adapté aux besoins, objectifs et capacités de l’adhérent (par exemple, perte de poids, prise de masse, gain en endurance, etc.).",
+  },
+  {
+    title: "1 plan alimentaire",
+    description:
+      "Un guide nutritionnel personnalisé qui accompagne les efforts physiques pour maximiser les résultats. Ce plan prend en compte les préférences alimentaires, le mode de vie et les objectifs de santé.",
+  },
+  {
+    title: "1 BOOSTBOX",
+    description:
+      "Une boîte contenant des accessoires essentiels pour l’entraînement, tels qu’un t-shirt GRM TRAINER, des bandes de résistance, une corde à sauter, un ruban à mesurer, et d’autres outils pour soutenir la progression.",
+  },
+  {
+    title: "Des séances et exercices vidéo",
+    description:
+      "Une bibliothèque de vidéos démontrant les exercices à réaliser entre les séances en présentiel, garantissant une exécution correcte et sécurisée.",
+  },
+  {
+    title: "Des documents explicatifs",
+    description:
+      "Des supports écrits (comme des guides ou fiches pratiques) pour mieux comprendre les exercices, les programmes, et adopter de bonnes pratiques sportives et nutritionnelles.",
+  },
+  {
+    title: "Suivi de la progression",
+    description:
+      "Une évaluation régulière des progrès réalisés, permettant d’ajuster le programme et le plan alimentaire en fonction des résultats obtenus.",
+  },
+  {
+    title: "Échanges quotidiens via WhatsApp",
+    description:
+      "Une communication continue et instantanée avec le coach pour poser des questions, demander des conseils ou partager ses réussites, renforçant ainsi la motivation et l'accompagnement.",
   },
 ];

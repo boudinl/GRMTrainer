@@ -16,6 +16,7 @@ const AddNewProductSchema = Joi.object({
   onSale: Joi.string().required(),
   priceDrop: Joi.number().required(),
   imageUrl: Joi.string().required(),
+  devis: Joi.string().required(),
   optionalImagesUrl: Joi.array().optional(),
   productType: Joi.string().valid("product", "coaching", "ebook").required(), // Ajout du champ 'type'
   duration: Joi.number().optional(), // Optionnel, uniquement pour le type 'coaching'
@@ -45,6 +46,7 @@ export async function POST(req) {
         sizes,
         content,
         deliveryInfo,
+        devis,
         onSale,
         priceDrop,
         productType,
@@ -61,6 +63,7 @@ export async function POST(req) {
         sizes,
         content,
         deliveryInfo,
+        devis,
         onSale,
         priceDrop,
         productType,
