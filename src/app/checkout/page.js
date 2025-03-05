@@ -46,10 +46,7 @@ export default function Checkout() {
   }, []);
 
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST;
-  console.log("stripe key", publishableKey);
-  console.log("stripe key", process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST);
   const stripePromise = loadStripe(publishableKey);
-  console.log("stripe promise", stripePromise);
 
   const totalBeforeDiscount = cartItems.reduce(
     (total, item) => item.productID.price + total,
@@ -61,8 +58,6 @@ export default function Checkout() {
   const totalPrice = parseFloat(
     (totalBeforeDiscount - discountAmount).toFixed(2)
   );
-
-  console.log(cartItems);
 
   async function getAllAddresses() {
     const res = await fetchAllAddresses(user?._id);
@@ -120,7 +115,7 @@ export default function Checkout() {
           isProcessing: true,
           paidAt: new Date(),
         };
-        console.log("creatre final chekout ", createFinalCheckoutFormData);
+
         const res = await createNewOrder(createFinalCheckoutFormData);
 
         if (res.success) {
@@ -192,8 +187,6 @@ export default function Checkout() {
       };
     });
 
-    console.log(createLineItems);
-
     const res = await callStripeSession(createLineItems);
     setIsOrderProcessing(true);
     localStorage.setItem("stripe", true);
@@ -206,8 +199,6 @@ export default function Checkout() {
     console.log(error);
   }
 
-  console.log(checkoutFormData);
-
   async function handleApplySaleCode() {
     const res = await applySaleCode(promoCode);
 
@@ -215,10 +206,8 @@ export default function Checkout() {
       toast.success(res.message, {
         position: "top-right",
       });
-      console.log(res.data.priceDrop);
-      setDiscount(res.data.priceDrop);
 
-      console.log("TJE CHECKOUT", checkoutFormData);
+      setDiscount(res.data.priceDrop);
     } else {
       toast.error(res.message, {
         position: "top-right",
@@ -237,12 +226,12 @@ export default function Checkout() {
 
   if (orderSuccess) {
     return (
-      <section className="h-screen bg-gray-200">
+      <section className="h-screen bg-gray-200 ">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mt-8 max-w-screen-xl px-4 sm:px-6 lg:px-8 ">
-            <div className="bg-white shadow">
+            <div className="bg-white shadow mt-4">
               <div className="px-4 py-6 sm:px-8 sm:py-10 flex flex-col gap-5">
-                <h1 className="font-bold text-lg">
+                <h1 className="font-bold text-lg text-black">
                   Votre paiement est réussi vous allez être redirigé vers vos
                   commandes dans 2 secondes !
                 </h1>
